@@ -1,163 +1,137 @@
 # WS-02: Problem Statement
 
-> **Bab 2 — Problem Formulation & System Context**
+## Bab 2 — Problem Formulation & System Context
+
+**Nama** : Ahmad Sultoni
+**NIM** : 240202850
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)
 
 ---
 
-## Ringkasan Materi
+# Template A.2 — Problem Statement Builder
 
-### Problem Formation Model
+## Domain & Konteks
 
-Masalah riset melewati 5 tahap transformasi. Melompat langsung dari Reality ke Variable adalah kesalahan paling umum.
-
-```
-Reality → Observed Issue (Symptom) → Diagnosed Problem (Root Cause)
-→ Researchable Problem (Scoped) → Measurable Variable (Operationalized)
-```
-
-### Topic ≠ Problem ≠ Research Problem
-
-| Level | Contoh | Status |
-|-------|--------|--------|
-| **Topik** | Keamanan IoT | Terlalu luas, tidak bisa diuji |
-| **Problem** | MQTT tidak terenkripsi | Spesifik tapi belum riset |
-| **Research Problem** | Belum ada studi membandingkan overhead TLS 1.3 vs DTLS pada MQTT di IoT RAM < 64KB | Bisa dirancang eksperimennya |
-
-### Symptom vs Root Cause
-
-Apa yang diamati (gejala) ≠ mengapa terjadi (akar masalah). Gunakan **5 Whys** atau **Fishbone Diagram** untuk menggali.
-
-Contoh: "User meninggalkan checkout" (symptom) → "Waktu loading > 8 detik karena API call sequential" (root cause).
-
-### System Thinking
-
-Setiap masalah riset TI harus terikat pada komponen sistem: **Input → Process → Output → Outcome → Constraints → Stakeholders**.
-
-### Problem Quality Check
-
-Masalah riset yang layak harus memenuhi 5 kriteria:
-- **Clarity** — Satu orang membaca akan paham
-- **Measurability** — Ada metrik kuantitatif
-- **Relevance** — Penting untuk domain
-- **Testability** — Bisa gagal (falsifiable)
-- **Impact** — Ada kontribusi jika terjawab
-
-### Research vs Engineering
-
-| Aspek | Engineering | Research |
-|-------|------------|----------|
-| Tujuan | Menyelesaikan masalah (*solve*) | Memahami dan membuktikan (*understand & prove*) |
-| Masalah | Bug, error, fitur belum ada | Gap dalam pengetahuan |
-| Scope | Selesaikan semua yang perlu | Batasi agar bisa dibuktikan |
-| Output | Working system | Evidence, paper, replicable findings |
-
-### Istilah Penting
-
-- **Problem Statement** — Formulasi tertulis: konteks sistem + gap + dampak + justifikasi
-- **System Context** — Deskripsi lengkap: input, proses, output, outcome, constraints, stakeholders
-- **Problem Drift** — Masalah "bermutasi" dari pendahuluan ke metodologi karena statement awal tidak presisi
-- **Solution-First Thinking** — Memulai dari solusi tanpa masalah yang jelas — berbahaya dalam riset
-- **Operational Definition** — Definisi variabel yang cukup jelas agar peneliti lain bisa mengukur hal yang sama
+Domain : Sistem Informasi / Web Application Performance
+Konteks : Aplikasi e-learning berbasis web pada lingkungan kampus
 
 ---
 
-## Template A.2 — Problem Statement Builder
+## System Context
 
-```
-PROBLEM STATEMENT BUILDER
+Input :
+Request pengguna saat membuka halaman materi atau tugas
 
-Domain & Konteks
-  Domain   : ____________________
-  Konteks  : ____________________
+Process :
+Server memproses request, mengambil data dari database, lalu mengirimkan halaman ke pengguna
 
-System Context
-  Input       : ____________________
-  Process     : ____________________
-  Output      : ____________________
-  Outcome     : ____________________
-  Constraints : ____________________
-  Stakeholders: ____________________
+Output :
+Halaman e-learning ditampilkan kepada pengguna
 
-Fenomena → Problem
-  Fenomena yang diamati             : ____________________
-  Gejala (symptom) yang terukur     : ____________________
-  Masalah yang didiagnosis          : ____________________
-  Masalah riset (researchable)      : ____________________
-  Variabel yang terukur             : ____________________
+Outcome :
+Pengguna dapat mengakses materi dengan cepat dan nyaman
 
-Problem Quality Check
-  [ ] Clarity — Apakah satu orang membaca akan paham?
-  [ ] Measurability — Apakah ada metrik kuantitatif?
-  [ ] Relevance — Apakah penting untuk domain?
-  [ ] Testability — Apakah bisa gagal?
-  [ ] Impact — Apakah ada kontribusi jika terjawab?
+Constraints :
+Keterbatasan server, jaringan internet pengguna, dan desain sistem aplikasi
 
-Problem Statement (1 paragraf):
-  ____________________
-```
+Stakeholders :
+Mahasiswa, dosen, dan pengelola sistem e-learning
 
 ---
 
-## Latihan 1 — Dari Topik ke Masalah Riset
+## Fenomena → Problem
 
-Pilih satu topik di bidang TI yang diminati. Transformasikan melalui 5 tahap Problem Formation Model.
+Fenomena yang diamati :
+Mahasiswa sering mengeluhkan akses e-learning yang lambat terutama saat jam sibuk
 
-**Topik awal:** ________________________________________
+Gejala (symptom) yang terukur :
+Waktu loading halaman lebih dari 5 detik saat banyak pengguna mengakses
 
-| Tahap | Hasil |
-|-------|-------|
-| Reality | *Contoh: Aplikasi e-commerce sering ditinggalkan saat checkout* |
-| Observed Issue (Symptom) | *Contoh: Bounce rate checkout 68%* |
-| Diagnosed Problem (Root Cause) | |
-| Researchable Problem | |
-| Measurable Variable | |
+Masalah yang didiagnosis :
+Sistem belum optimal dalam menangani banyak request secara bersamaan
 
-**Apakah terjebak solution-first thinking?** [ ] Ya / [ ] Tidak
-> Jika ya, kembali ke tahap mana? ________________________
+Masalah riset (researchable) :
+Belum ada evaluasi performa sistem e-learning terhadap metode optimasi server tertentu
 
----
-
-## Latihan 2 — System Context Decomposition
-
-Gambarkan konteks sistem dari masalah riset di Latihan 1.
-
-| Komponen | Deskripsi |
-|----------|----------|
-| Input | *Contoh: Request HTTP dari browser pengguna* |
-| Process | |
-| Output | |
-| Outcome | |
-| Constraints | |
-| Stakeholders | |
-
-**Komponen mana yang paling relevan dengan masalah riset?** _______________
+Variabel yang terukur :
+Response time, throughput, CPU usage, dan jumlah concurrent user
 
 ---
 
-## Latihan 3 — Problem Quality Check
+## Problem Quality Check
 
-Evaluasi problem statement yang sudah dibuat menggunakan 5 kriteria.
-
-| Kriteria | Skor (1-5) | Justifikasi |
-|----------|-----------|-------------|
-| Clarity | *Contoh: 4 — cukup jelas tapi perlu spesifikasi dataset* | |
-| Measurability | | |
-| Relevance | | |
-| Testability | | |
-| Impact | | |
-
-**Skor total:** _____ / 25
-
-**Problem statement versi final (1 paragraf):**
-> ___________________________________________________
-> ___________________________________________________
+[x] Clarity — Apakah satu orang membaca akan paham?
+[x] Measurability — Apakah ada metrik kuantitatif?
+[x] Relevance — Apakah penting untuk domain?
+[x] Testability — Apakah bisa gagal?
+[x] Impact — Apakah ada kontribusi jika terjawab?
 
 ---
 
-## Refleksi
+## Problem Statement (1 paragraf)
 
-> Bandingkan "masalah" yang biasa ditemui saat coding (bug, error) dengan masalah riset. Apa perbedaan fundamental dalam cara mendefinisikan dan mendekati keduanya?
+Aplikasi e-learning berbasis web sering mengalami penurunan performa ketika diakses oleh banyak pengguna secara bersamaan, terutama pada jam kuliah. Hal ini ditunjukkan dengan meningkatnya waktu loading halaman yang melebihi 5 detik. Kondisi tersebut mengindikasikan bahwa sistem belum mampu menangani beban pengguna secara optimal. Oleh karena itu, diperlukan penelitian untuk mengevaluasi performa sistem e-learning dan menguji metode optimasi server guna meningkatkan response time dan stabilitas sistem.
 
-**Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+---
+
+# Latihan 1 — Dari Topik ke Masalah Riset
+
+Topik awal:
+Optimasi Performa Sistem E-learning
+
+| Tahap                          | Hasil                                                     |
+| ------------------------------ | --------------------------------------------------------- |
+| Reality                        | Mahasiswa sering mengakses e-learning secara bersamaan    |
+| Observed Issue (Symptom)       | Sistem e-learning menjadi lambat                          |
+| Diagnosed Problem (Root Cause) | Server tidak mampu menangani banyak request               |
+| Researchable Problem           | Belum ada evaluasi metode optimasi server pada e-learning |
+| Measurable Variable            | Response time, throughput, CPU usage                      |
+
+Apakah terjebak solution-first thinking?
+[ ] Ya
+[x] Tidak
+
+## Jika ya, kembali ke tahap mana?
+
+---
+
+# Latihan 2 — System Context Decomposition
+
+| Komponen     | Deskripsi                       |
+| ------------ | ------------------------------- |
+| Input        | Request pengguna                |
+| Process      | Pengolahan request oleh server  |
+| Output       | Halaman e-learning              |
+| Outcome      | Pengguna dapat mengakses sistem |
+| Constraints  | Server terbatas                 |
+| Stakeholders | Mahasiswa dan dosen             |
+
+Komponen mana yang paling relevan dengan masalah riset?
+Process dan Constraints
+
+---
+
+# Latihan 3 — Problem Quality Check
+
+| Kriteria      | Skor (1-5) | Justifikasi                    |
+| ------------- | ---------- | ------------------------------ |
+| Clarity       | 5          | Masalah jelas dan spesifik     |
+| Measurability | 5          | Ada metrik performa            |
+| Relevance     | 5          | Masalah nyata di e-learning    |
+| Testability   | 4          | Bisa diuji dengan eksperimen   |
+| Impact        | 5          | Berdampak pada banyak pengguna |
+
+Skor total:
+24 / 25
+
+---
+
+## Problem statement versi final (1 paragraf)
+
+Sistem e-learning berbasis web sering mengalami penurunan performa ketika diakses oleh banyak pengguna secara bersamaan. Hal ini terlihat dari meningkatnya waktu respon yang melebihi batas normal. Kondisi tersebut menunjukkan bahwa sistem belum mampu menangani beban pengguna secara optimal. Oleh karena itu, penelitian ini bertujuan untuk mengevaluasi performa sistem dan menguji metode optimasi server untuk meningkatkan stabilitas dan kecepatan akses.
+
+---
+
+# Refleksi
+
+Masalah dalam coding biasanya fokus pada memperbaiki error agar sistem bisa berjalan kembali. Sedangkan dalam penelitian, masalah tidak hanya tentang memperbaiki, tetapi juga memahami penyebab dan membuktikannya secara ilmiah. Penelitian membutuhkan batasan yang jelas dan variabel yang terukur, sedangkan coding lebih fokus pada solusi praktis. Perbedaan ini membuat pendekatan dalam penelitian menjadi lebih sistematis dan terstruktur dibandingkan dengan penyelesaian masalah saat coding.
