@@ -1,168 +1,153 @@
 # WS-04: Research Question & Hypothesis
 
-> **Bab 4 — Research Question, Contribution & Hypothesis**
+> Bab 4 — Research Question, Contribution & Hypothesis
+
+**Nama** : Ahmad Sultoni  
+**NIM** : 240202850  
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)  
 
 ---
 
-## Ringkasan Materi
+## RQ-CONTRIBUTION-HYPOTHESIS
 
-### RQ Bukan Pertanyaan Biasa
-
-Research Question yang baik secara implisit mengandung cetak biru eksperimen: subjek, baseline, metrik, domain, dataset.
-
-| Kualitas | Contoh |
-|----------|--------|
-| **Buruk** | "Bagaimana pengaruh deep learning terhadap deteksi malware?" |
-| **Baik** | "Apakah CNN menghasilkan F1-Score lebih tinggi dari RF pada CIC-MalMem-2022?" |
-
-Perbedaan: RQ yang baik menyebutkan **metode spesifik**, **metrik terukur**, **baseline**, dan **dataset**.
-
-### Tiga Jenis RQ
-
-| Jenis | Pola | Kebutuhan |
-|-------|------|-----------|
-| **Comparison** | A vs B → mana lebih baik? | ≥ 2 metode, metrik sama |
-| **Improvement** | A' vs A → modifikasi lebih baik? | Pre/post, bukti perbaikan |
-| **Exploratory** | Faktor X₁...Xₙ → pengaruh terhadap Y? | Multi-variabel, korelasi/regresi |
-
-### Contribution Statement
-
-Tiga jenis kontribusi: **Improvement** (metode terbukti lebih baik), **Comparison** (perbandingan sistematis yang belum ada), **Novel Approach** (pendekatan baru). Kontribusi harus terhubung langsung dengan gap — kontribusi tanpa gap = klaim tanpa justifikasi.
-
-### Hypothesis H₀ / H₁
-
-- **H₀** (Null) = Tidak ada perbedaan signifikan — asumsi default, harus dibuktikan salah
-- **H₁** (Alternative) = Ada perbedaan signifikan — diterima hanya jika H₀ ditolak
-- Harus **falsifiable**, mengandung **metrik terukur**, dirumuskan **SEBELUM eksperimen**
-
-### Rantai Operasionalisasi
-
-```
-RQ → Variable → Metric → Data → Analysis
-```
-
-Jika rantai ini tidak lengkap, RQ belum mature. Bi-directional: RQ yang tidak bisa jadi hipotesis testable harus direvisi mundur.
-
-### Research vs Engineering
-
-| Aspek | Engineering | Research |
-|-------|------------|----------|
-| Tujuan pertanyaan | Apa yang harus dibangun? | Apa yang harus dibuktikan? |
-| Bentuk jawaban | Sistem yang berfungsi | Bukti empiris terukur |
-| Sukses diukur oleh | User satisfaction, uptime | Signifikansi statistik, effect size |
-| Jika gagal | Debug dan perbaiki | Laporkan, analisis mengapa |
-
-### Istilah Penting
-
-- **Research Question (RQ)** — Pertanyaan spesifik: variabel terukur + metrik + konteks
-- **Contribution Statement** — Apa yang diketahui setelah riset selesai yang sebelumnya belum ada
-- **H₀ / H₁** — Null vs Alternative Hypothesis
-- **Falsifiability** — Kondisi hipotesis ditolak harus bisa didefinisikan sebelum eksperimen
-- **Operationalization** — Proses mewujudkan konsep abstrak menjadi variabel terukur
+**Gap Statement**  
+Sebagian besar penelitian sebelumnya masih menggunakan dataset simulasi dan belum membandingkan secara langsung metode caching dan load balancing dalam kondisi beban tinggi pada sistem e-learning.
 
 ---
 
-## Template A.4 — RQ-Contribution-Hypothesis
+## Research Question
 
-```
-RQ-CONTRIBUTION-HYPOTHESIS
+**Tipe** : [x] Comparison  [ ] Improvement  [ ] Exploratory  
 
-Gap Statement  : ____________________
+**Formulasi**  
+Apakah metode caching (Redis) menghasilkan response time yang lebih rendah dibandingkan load balancing dalam meningkatkan performa sistem e-learning berbasis web pada kondisi concurrent user tinggi?
 
-Research Question:
-  Tipe         : [ ] Comparison  [ ] Improvement  [ ] Exploratory
-  Formulasi    : ____________________
-  Variabel IV  : ____________________
-  Variabel DV  : ____________________
-  Metrik       : ____________________
-  Dataset      : ____________________
-  Baseline     : ____________________
+**Variabel IV (Independent Variable)**  
+Metode optimasi (Caching vs Load Balancing)
 
-Quality Check RQ:
-  [ ] Variabel spesifik
-  [ ] Metrik jelas
-  [ ] Baseline ada
-  [ ] Konteks disebutkan
-  [ ] Memerlukan eksperimen (bukan hanya survei literatur)
+**Variabel DV (Dependent Variable)**  
+Performa sistem (response time, throughput)
 
-Contribution Statement:
-  Apa yang baru diketahui : ____________________
-  Jenis kontribusi        : [ ] Improvement  [ ] Comparison  [ ] Novel approach
-  Gap yang diisi          : ____________________
+**Metrik**  
+- Response time (ms)  
+- Throughput (request/second)  
 
-Hypothesis Pair:
-  H₀ : ____________________
-  H₁ : ____________________
-  Threshold              : ____________________
-  Justifikasi threshold  : ____________________
-```
+**Dataset / Konteks**  
+Simulasi beban pengguna pada sistem e-learning berbasis web (menggunakan skenario concurrent user)
+
+**Baseline**  
+Load Balancing
+
+---
+
+## Quality Check RQ
+
+[x] Variabel spesifik  
+[x] Metrik jelas  
+[x] Baseline ada  
+[x] Konteks disebutkan  
+[x] Memerlukan eksperimen  
+
+---
+
+## Contribution Statement
+
+**Apa yang baru diketahui**  
+Penelitian ini memberikan perbandingan langsung antara metode caching dan load balancing dalam kondisi beban tinggi pada sistem e-learning, yang sebelumnya belum diuji secara spesifik dengan pendekatan yang sama.
+
+**Jenis kontribusi**  
+[x] Comparison  [ ] Improvement  [ ] Novel approach  
+
+**Gap yang diisi**  
+Data gap dan method gap pada evaluasi performa sistem e-learning.
+
+---
+
+## Hypothesis Pair
+
+**H₀ (Null Hypothesis)**  
+Tidak terdapat perbedaan signifikan pada response time antara metode caching dan load balancing dalam sistem e-learning.
+
+**H₁ (Alternative Hypothesis)**  
+Metode caching menghasilkan response time yang secara signifikan lebih rendah dibandingkan load balancing dalam sistem e-learning.
+
+**Threshold**  
+p-value < 0.05  
+
+**Justifikasi threshold**  
+Nilai 0.05 merupakan standar umum dalam pengujian statistik untuk menentukan signifikansi perbedaan antar metode.
 
 ---
 
 ## Latihan 1 — Dari Gap ke RQ
 
-Gunakan gap yang ditemukan di WS-03. Transformasikan menjadi Research Question.
+**Gap dari WS-03:**  
+Penggunaan dataset tidak realistis dan belum adanya perbandingan langsung metode optimasi dalam konteks e-learning.
 
-**Gap dari WS-03:** ____________________________________
+**RQ versi pertama (bebas):**  
+> Metode optimasi mana yang paling baik untuk meningkatkan performa e-learning?
 
-**RQ versi pertama (tulis bebas):**
-> ___________________________________________________
-
-**Evaluasi RQ:**
+### Evaluasi RQ
 
 | Komponen | Ada? | Isi |
 |----------|------|-----|
-| Metode spesifik | *Contoh: Ya — CNN vs RF* | |
-| Metrik terukur | | |
-| Baseline | | |
-| Dataset/konteks | | |
+| Metode spesifik | Tidak | Masih umum |
+| Metrik terukur | Tidak | Belum ada |
+| Baseline | Tidak | Belum jelas |
+| Dataset/konteks | Tidak | Belum disebutkan |
 
-**Tipe RQ:** [ ] Comparison / [ ] Improvement / [ ] Exploratory
+**Tipe RQ:** Comparison  
 
-**RQ versi revisi (setelah evaluasi):**
-> ___________________________________________________
+---
+
+**RQ versi revisi (final):**  
+> Apakah metode caching (Redis) menghasilkan response time lebih rendah dibandingkan load balancing pada sistem e-learning dengan jumlah pengguna tinggi?
 
 ---
 
 ## Latihan 2 — Hypothesis Pair
 
-Rumuskan pasangan hipotesis dari RQ di Latihan 1.
-
 | Komponen | Isi |
 |----------|-----|
-| H₀ | *Contoh: Tidak ada perbedaan signifikan F1-Score antara CNN dan RF pada dataset CIC-MalMem-2022* |
-| H₁ | |
-| Metrik | |
-| Threshold | |
-| Justifikasi threshold | |
+| H₀ | Tidak ada perbedaan signifikan response time antara caching dan load balancing |
+| H₁ | Caching menghasilkan response time lebih rendah dibanding load balancing |
+| Metrik | Response time |
+| Threshold | p-value < 0.05 |
+| Justifikasi threshold | Standar umum dalam analisis statistik |
 
-**Apakah hipotesis ini falsifiable?** [ ] Ya / [ ] Tidak
-> Bagaimana cara membuktikannya salah? ___________________
+**Apakah hipotesis ini falsifiable?**  
+[x] Ya  
+
+**Cara membuktikannya salah**  
+Jika hasil uji statistik menunjukkan p-value ≥ 0.05, maka tidak ada perbedaan signifikan dan H₀ tidak dapat ditolak.
 
 ---
 
 ## Latihan 3 — Rantai Operasionalisasi
 
-Lengkapi rantai dari RQ hingga metode analisis.
-
 | Tahap | Isi |
-|-------|-----|
-| RQ | *Contoh: Apakah CNN menghasilkan F1-Score lebih tinggi dari RF...* |
-| Variable (IV) | *Contoh: Jenis algoritma (CNN vs RF)* |
-| Variable (DV) | |
-| Metric | |
-| Data source | |
-| Analysis method | |
+|------|-----|
+| RQ | Apakah caching lebih cepat dibanding load balancing pada e-learning? |
+| Variable (IV) | Jenis metode optimasi (Caching vs Load Balancing) |
+| Variable (DV) | Response time dan throughput |
+| Metric | ms dan request/second |
+| Data source | Simulasi beban user pada sistem e-learning |
+| Analysis method | Uji statistik (t-test) |
 
-**Apakah rantai lengkap?** [ ] Ya / [ ] Tidak
-> Jika tidak, tahap mana yang perlu direvisi? ______________
+**Apakah rantai lengkap?**  
+[x] Ya  
 
 ---
 
 ## Refleksi
 
-> Ambil satu judul skripsi/paper yang pernah dibaca. Coba ekstrak RQ-nya. Apakah RQ tersebut memenuhi semua komponen (metode, metrik, baseline, konteks)? Jika tidak, apa yang hilang?
+**Judul**  
+Analisis Performa Web Server Menggunakan Load Balancing  
 
-**Judul:** _____________________________________________
-**RQ yang diekstrak:** __________________________________
-**Komponen yang hilang:** _______________________________
+**RQ yang diekstrak**  
+Apakah load balancing meningkatkan performa web server?
+
+**Komponen yang hilang**  
+RQ tersebut belum menyebutkan metrik yang jelas, dataset yang digunakan, serta tidak ada baseline pembanding. Hal ini membuat penelitian kurang kuat karena tidak memiliki arah eksperimen yang spesifik.
+
+---
