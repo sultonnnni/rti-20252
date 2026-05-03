@@ -1,140 +1,95 @@
 # WS-05: Variabel & Metrik
 
-> **Bab 5 — Metric, Measurement & Data**
+> Bab 5 — Metric, Measurement & Data
+
+**Nama** : Ahmad Sultoni  
+**NIM** : 240202850  
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)  
 
 ---
 
-## Ringkasan Materi
+## VARIABLE & METRIC DEFINITION
 
-### Measurement Alignment Model
-
-Setiap pengukuran yang valid harus bisa ditelusuri melalui rantai ini tanpa lompatan logis:
-
-```
-Problem → Concept → Variable → Metric → Data → Result
-```
-
-### Operationalization = Keputusan Desain
-
-Menerjemahkan konsep abstrak menjadi variabel terukur bukan proses mekanis. "Code quality" yang diukur via SonarQube code smells membawa asumsi implisit. Setiap operasionalisasi harus didokumentasikan dan dijustifikasi.
-
-### Empat Tipe Data (NOIR)
-
-| Tipe | Ciri | Contoh | Operasi Valid |
-|------|------|--------|---------------|
-| **Nominal** | Kategori, tanpa urutan | Jenis algoritma (RF, SVM, CNN) | Modus, chi-square |
-| **Ordinal** | Urutan, interval tidak sama | Skala Likert (1-5) | Median, Spearman |
-| **Interval** | Jarak bermakna, tanpa nol absolut | Suhu Celsius | Mean, Pearson, t-test |
-| **Ratio** | Jarak bermakna + nol absolut | Waktu eksekusi (ms) | Semua operasi |
-
-Tipe data menentukan uji statistik yang valid. Kebanyakan metrik performa TI = ratio; persepsi pengguna = ordinal.
-
-### Kriteria Pemilihan Metrik
-
-- **Representative** — Mewakili konsep yang diteliti
-- **Sensitive** — Cukup peka menangkap perbedaan bermakna (hindari ceiling effect)
-- **Feasible** — Bisa dikumpulkan dalam batasan waktu dan biaya
-
-### Pre-registration
-
-Metrik harus ditentukan **sebelum** eksperimen. Memilih metrik setelah melihat data = **p-hacking**. Metrik tambahan yang ditemukan kemudian dilaporkan sebagai *exploratory*, bukan *confirmatory*.
-
-### Primary vs Secondary Metric
-
-- **Primary Metric** — Langsung terikat ke hipotesis, menentukan kesimpulan
-- **Secondary Metric** — Pendukung, dilaporkan di samping primary; statusnya suplementer
-
-### Research vs Engineering
-
-| Aspek | Engineering | Research |
-|-------|------------|----------|
-| Pemilihan metrik | Berdasarkan kebiasaan/tool yang ada | Berdasarkan construct validity |
-| Anomali | Dihapus untuk laporan bersih | Diinvestigasi — bisa jadi temuan |
-| Kapan dipilih | Setelah sistem jadi (monitoring) | Sebelum eksperimen (by design) |
-
-### Istilah Penting
-
-- **Operationalization** — Transformasi konsep abstrak menjadi variabel terukur
-- **Construct Validity** — Sejauh mana pengukuran benar-benar mengukur konsep yang dimaksud
-- **Measurement Scale** — Klasifikasi data (NOIR) yang menentukan analisis valid
-- **Multi-metric Evaluation** — Menggunakan beberapa metrik untuk menangkap konsep kompleks
+**Research Question**  
+Apakah metode caching (Redis) menghasilkan response time yang lebih rendah dibandingkan load balancing dalam meningkatkan performa sistem e-learning berbasis web pada kondisi concurrent user tinggi?
 
 ---
-
-## Template A.5 — Definisi Variabel, Metrik & Justifikasi
-
-```
-VARIABLE & METRIC DEFINITION
-
-Research Question: ____________________
 
 | Variabel | Tipe | Konsep | Metrik | Skala | Satuan | Cara Mengukur | Justifikasi |
 |----------|------|--------|--------|-------|--------|---------------|-------------|
-|          | IV   |        |        |       |        |               |             |
-|          | DV   |        |        |       |        |               |             |
-|          | CV   |        |        |       |        |               |             |
+| Metode optimasi | IV | Pendekatan optimasi performa server | Kategori (Caching vs Load Balancing) | Nominal | — | Mengatur konfigurasi server sesuai metode yang diuji | Mewakili perbedaan pendekatan utama dalam optimasi sistem |
+| Performa sistem (Response Time) | DV | Kecepatan sistem merespon request | Rata-rata response time | Ratio | ms | Mengukur waktu dari request dikirim hingga response diterima | Langsung merepresentasikan kecepatan akses pengguna |
+| Performa sistem (Throughput) | DV | Kemampuan sistem menangani request | Jumlah request per detik | Ratio | request/second | Menghitung jumlah request yang berhasil diproses per detik | Menggambarkan kapasitas sistem dalam kondisi beban tinggi |
+| Jumlah user | CV | Beban sistem | Jumlah concurrent user | Ratio | user | Menentukan jumlah user pada setiap skenario pengujian | Mengontrol agar perbandingan tetap adil |
+| Spesifikasi server | CV | Lingkungan sistem | CPU, RAM server | Nominal | — | Menjaga konfigurasi server tetap sama selama eksperimen | Menghindari bias dari perbedaan hardware |
+| Dataset request | CV | Pola akses sistem | Skenario request (login, akses materi, dll) | Nominal | — | Menggunakan skenario request yang sama di setiap pengujian | Menjaga konsistensi data uji |
 
-Alignment Check:
-  RQ → Concept → Variable → Metric → Data → Result
-  [ ] Setiap langkah terdokumentasi
-  [ ] Tidak ada "lompatan logis"
-  [ ] Metrik mengukur apa yang dimaksud (construct validity)
-```
+---
+
+## Alignment Check
+
+RQ → Concept → Variable → Metric → Data → Result  
+
+[x] Setiap langkah terdokumentasi  
+[x] Tidak ada lompatan logis  
+[x] Metrik mengukur konsep yang dimaksud  
 
 ---
 
 ## Latihan 1 — Operationalization Chain
 
-Gunakan RQ dari WS-04. Definisikan variabel dan metriknya.
-
-**RQ:** __________________________________________________
+**RQ:**  
+Apakah caching lebih cepat dibanding load balancing pada sistem e-learning dengan banyak pengguna?
 
 | Variabel | Tipe | Konsep Abstrak | Metrik Konkret | Skala (NOIR) | Satuan |
 |----------|------|---------------|----------------|-------------|--------|
-| *Contoh: Jenis model* | *IV* | *Pendekatan klasifikasi* | *Categorical: CNN vs RF* | *Nominal* | *—* |
-| | DV | | | | |
-| | CV | | | | |
+| Metode optimasi | IV | Pendekatan sistem | Caching vs Load Balancing | Nominal | — |
+| Response time | DV | Kecepatan sistem | Waktu respon rata-rata | Ratio | ms |
+| Throughput | DV | Kapasitas sistem | Request per detik | Ratio | request/s |
+| Jumlah user | CV | Beban sistem | Jumlah user aktif | Ratio | user |
 
-**Apakah ada lompatan logis dalam rantai?** [ ] Ya / [ ] Tidak
-> Jika ya, di mana? ____________________________________
+**Apakah ada lompatan logis?**  
+[x] Tidak  
 
 ---
 
 ## Latihan 2 — Evaluasi Metrik
 
-Evaluasi metrik DV yang dipilih di Latihan 1 menggunakan 3 kriteria.
-
 | Kriteria | Skor (1-5) | Justifikasi |
 |----------|-----------|-------------|
-| Representative | *Contoh: 4 — F1-Score mewakili keseimbangan precision-recall* | |
-| Sensitive | | |
-| Feasible | | |
+| Representative | 5 | Response time langsung mencerminkan performa sistem dari sudut pandang pengguna |
+| Sensitive | 4 | Perubahan kecil pada sistem masih bisa terdeteksi melalui perubahan waktu respon |
+| Feasible | 5 | Mudah diukur menggunakan tools monitoring server |
 
-**Apakah perlu secondary metric?** [ ] Ya / [ ] Tidak
-> Jika ya, apa dan mengapa? _____________________________
+**Apakah perlu secondary metric?**  
+[x] Ya  
 
-**Contoh kasus ceiling effect untuk metrik ini:**
-> ___________________________________________________
+**Secondary metric:** Throughput  
+**Alasan:**  
+Karena response time saja belum cukup menggambarkan performa sistem secara keseluruhan, sehingga perlu metrik tambahan untuk melihat kemampuan sistem dalam menangani banyak request.
+
+---
+
+**Contoh ceiling effect:**  
+Jika semua metode menghasilkan response time yang hampir sama (misalnya <100 ms), maka perbedaan antar metode menjadi sulit terlihat.
 
 ---
 
 ## Latihan 3 — Data Quality Check
 
-Bayangkan data yang akan dikumpulkan dari eksperimen. Evaluasi 4 dimensi kualitas data.
-
 | Dimensi | Pertanyaan | Jawaban | Strategi Mitigasi |
 |---------|-----------|---------|------------------|
-| Completeness | *Apakah semua data point terkumpul?* | | |
-| Consistency | *Apakah ada kontradiksi internal?* | | |
-| Validity | *Apakah benar-benar mengukur yang dimaksud?* | | |
-| Representativeness | *Apakah sampel mewakili populasi target?* | | |
+| Completeness | Apakah semua data terkumpul? | Kemungkinan ada data yang hilang saat load tinggi | Melakukan logging otomatis |
+| Consistency | Apakah ada kontradiksi data? | Bisa terjadi jika server tidak stabil | Menjalankan eksperimen berulang |
+| Validity | Apakah benar mengukur performa? | Ya, karena metrik langsung dari sistem | Gunakan tools monitoring terpercaya |
+| Representativeness | Apakah data mewakili kondisi nyata? | Belum sepenuhnya | Gunakan variasi jumlah user |
 
 ---
 
 ## Refleksi
 
-> Mengapa memilih metrik setelah melihat data dianggap p-hacking? Apa bedanya dengan eksplorasi data yang sah?
+Memilih metrik setelah melihat data disebut p-hacking karena peneliti bisa saja memilih metrik yang paling menguntungkan hasilnya. Hal ini membuat penelitian menjadi tidak objektif.
 
-**Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+Berbeda dengan eksplorasi data yang sah, eksplorasi dilakukan setelah analisis utama dan biasanya diberi label sebagai temuan tambahan. Sedangkan p-hacking dilakukan untuk memanipulasi hasil agar terlihat signifikan sejak awal.
+
+---
