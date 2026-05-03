@@ -1,150 +1,163 @@
-# WS-06: System-Experiment Mapping
+# WS-06: System-Experiment Mapping & Architecture
 
-> **Bab 6 — System Design sebagai Experimental Artifact**
+> Bab 6 — System Design sebagai Experimental Artifact
 
----
-
-## Ringkasan Materi
-
-### Sistem = Instrumen Pengujian, Bukan Produk
-
-Seorang engineer bertanya "apakah sistem bekerja?" — seorang peneliti bertanya "apa yang bisa dibuktikan sistem ini?" Sistem dalam riset adalah **artifact** — objek yang sengaja dibuat untuk menguji klaim spesifik.
-
-### System as Experiment Model
-
-```
-RQ → Variable → System Component → Experimental Setup → Output
-```
-
-Setiap komponen sistem harus bisa ditelusuri ke variabel riset (top-down), dan setiap pengukuran harus menjawab RQ (bottom-up).
-
-### Mapping Variabel ke Komponen
-
-| Tipe Variabel | Peran di Sistem | Contoh |
-|---------------|----------------|--------|
-| **IV** (Independent) | Modul yang bisa di-toggle/swap | Algoritma A vs B |
-| **DV** (Dependent) | Modul pengukuran | Logger, metrics collector |
-| **CV** (Control) | Config yang dikunci | Dataset, parameter tetap |
-
-Jika variabel tidak bisa di-map ke komponen apapun → arsitektur perlu didesain ulang.
-
-### 4 Prinsip Desain Eksperimental
-
-| Prinsip | Pertanyaan Kunci |
-|---------|-----------------|
-| **Traceability** | Komponen ini melayani variabel yang mana? |
-| **Modularity** | Bisakah IV diubah tanpa memengaruhi yang lain? |
-| **Controllability** | Apakah CV dieksternalisasi ke config file? |
-| **Measurability** | Apakah sistem otomatis menghasilkan data yang dibutuhkan? |
-
-### Variable Isolation melalui Arsitektur
-
-- **Modular architecture** — Pisahkan berdasarkan variabel
-- **Configuration-driven** — Ubah config (YAML/JSON), bukan code
-- **Feature toggles** — On/off flag untuk ablation study
-
-### Research vs Engineering
-
-| Aspek | Engineering | Research |
-|-------|------------|----------|
-| Tujuan sistem | Memenuhi kebutuhan user | Menguji hipotesis, menghasilkan bukti |
-| Arsitektur | Optimasi performa & skalabilitas | Optimasi isolasi variabel & reprodusibilitas |
-| Konfigurasi | Sering hardcoded | Dieksternalisasi ke config file |
-| Fitur tambahan | Menambah nilai user | Menambah noise jika tidak terkait RQ |
-
-### Istilah Penting
-
-- **Artifact** — Objek yang sengaja dibuat untuk memecahkan masalah atau menguji proposisi
-- **Traceability** — Kemampuan menelusuri hubungan RQ → variabel → komponen → output
-- **Variable Isolation** — Mengubah hanya satu variabel sambil menahan yang lain konstan
-- **Ablation Study** — Menguji kontribusi tiap komponen dengan melepasnya satu per satu
-- **Configuration-driven Execution** — Semua parameter di config file, bukan hardcoded
+**Nama** : Ahmad Sultoni  
+**NIM** : 240202850  
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)  
 
 ---
 
-## Template A.6 — Mapping RQ ke Arsitektur Sistem
+## 🎯 Tujuan Sistem
 
-```
-SYSTEM-EXPERIMENT MAPPING
-
-Research Question: ____________________
-
-Variable → Component Mapping:
-| Variabel | Tipe | Komponen Sistem | Cara Manipulasi/Pengukuran |
-|----------|------|-----------------|---------------------------|
-|          | IV   |                 |                           |
-|          | DV   |                 |                           |
-|          | CV   |                 |                           |
-
-4 Prinsip Desain:
-  [ ] Traceability — Setiap komponen bisa ditelusuri ke variabel
-  [ ] Variable Isolation — IV bisa diubah tanpa mengubah CV
-  [ ] Measurement Integration — Pengukuran DV built-in
-  [ ] Reproducibility — Setup bisa direkonstruksi
-
-Experimental Setup:
-  Input data     : ____________________
-  Parameter      : ____________________
-  Output format  : ____________________
-```
+Arsitektur sistem ini dirancang sebagai *experimental artifact* untuk menguji perbandingan performa antara metode caching dan load balancing pada sistem e-learning berbasis web dalam kondisi beban pengguna tinggi.
 
 ---
 
-## Latihan 1 — Variable-to-Component Mapping
+## 🧱 Arsitektur Sistem
+            +----------------------+
+            |   Load Generator     |
+            | (JMeter / Locust)    |
+            +----------+-----------+
+                       |
+                       v
+            +----------------------+
+            |     Web Server       |
+            |       (Nginx)        |
+            +----------+-----------+
+                       |
+    +------------------+------------------+
+    |                                     |
+    v                                     v
+    +------------------+ +------------------+
+| App Server A | | App Server B |
+| (Backend API) | | (Backend API) |
++--------+---------+ +--------+---------+
+| |
++------------------+-----------------+
+|
+v
++----------------------+
+| Optimization Layer |
+|----------------------|
+| 1. Caching (Redis) |
+| 2. Load Balancer |
++----------+-----------+
+|
+v
++----------------------+
+| Database |
+| (MySQL) |
++----------+-----------+
+|
+v
++----------------------+
+| Monitoring & Logging |
+| (Grafana / Logs) |
++----------------------+
 
-Gunakan RQ dan variabel dari WS-05. Petakan ke komponen sistem.
+---
 
-**RQ:** __________________________________________________
+## 🔍 Penjelasan Komponen
+
+### 1. Load Generator
+Digunakan untuk mensimulasikan banyak pengguna secara bersamaan menggunakan tools seperti JMeter atau Locust.
+
+### 2. Web Server
+Menerima request dari pengguna dan meneruskannya ke application server.
+
+### 3. Application Server
+Menjalankan logika sistem e-learning seperti login, akses materi, dan pengumpulan tugas.
+
+### 4. Optimization Layer (Fokus Penelitian)
+- **Caching (Redis):** Menyimpan data yang sering diakses untuk mempercepat respon  
+- **Load Balancing:** Mendistribusikan request ke beberapa server  
+
+⚠️ Kedua metode diuji secara terpisah untuk menjaga keadilan eksperimen.
+
+### 5. Database
+Menyimpan seluruh data sistem e-learning.
+
+### 6. Monitoring & Logging
+Mengukur response time, throughput, dan performa sistem lainnya.
+
+---
+
+## 🔗 SYSTEM-EXPERIMENT MAPPING
+
+**Research Question**  
+Apakah metode caching menghasilkan response time yang lebih rendah dibandingkan load balancing pada sistem e-learning dengan jumlah pengguna tinggi?
+
+---
+
+### Variable → Component Mapping
 
 | Variabel | Tipe | Komponen Sistem | Cara Manipulasi / Pengukuran |
-|----------|------|-----------------|---------------------------|
-| *Contoh: Jenis model* | *IV* | *Modul classifier (swap RF ↔ CNN)* | *Ganti config `model_type`* |
-| | DV | | |
-| | CV | | |
-
-**Apakah semua variabel bisa di-map?** [ ] Ya / [ ] Tidak
-> Jika tidak, komponen apa yang perlu ditambahkan? _________
-
----
-
-## Latihan 2 — 4 Prinsip Desain
-
-Evaluasi desain sistem terhadap 4 prinsip.
-
-| Prinsip | Status | Bukti / Penjelasan |
-|---------|--------|-------------------|
-| Traceability | *Contoh: ✅ — setiap modul punya label variabel* | |
-| Modularity | | |
-| Controllability | | |
-| Measurability | | |
-
-**Prinsip mana yang paling sulit dipenuhi?** _______________
-**Strategi untuk mengatasinya:**
-> ___________________________________________________
+|----------|------|-----------------|------------------------------|
+| Metode optimasi | IV | Optimization Layer | Mengaktifkan caching atau load balancing melalui konfigurasi |
+| Response time | DV | Monitoring & Logging | Mengukur waktu respon dari request |
+| Throughput | DV | Monitoring & Logging | Menghitung request per detik |
+| Jumlah user | CV | Load Generator | Mengatur jumlah user |
+| Spesifikasi server | CV | Server Configuration | Dijaga tetap sama |
+| Skenario request | CV | Load Script | Digunakan sama untuk semua pengujian |
 
 ---
 
-## Latihan 3 — Ablation Study Planning
+## ✅ 4 Prinsip Desain
 
-Jika sistem memiliki 3 komponen utama, rencanakan ablation study.
-
-| Kondisi | Komponen A | Komponen B | Komponen C | Hasil yang Diharapkan |
-|---------|-----------|-----------|-----------|----------------------|
-| Full | *Contoh: ✅ CNN* | *Contoh: ✅ Temporal features* | *Contoh: ✅ Z-score norm* | *Baseline penuh* |
-| – A | ❌ (ganti RF) | ✅ | ✅ | |
-| – B | ✅ | ❌ (tanpa temporal) | ✅ | |
-| – C | ✅ | ✅ | ❌ (tanpa normalisasi) | |
-
-**Komponen mana yang diprediksi paling berkontribusi?** _____
-**Mengapa?**
-> ___________________________________________________
+| Prinsip | Status | Penjelasan |
+|---------|--------|-----------|
+| Traceability | ✅ | Setiap variabel terhubung ke komponen sistem |
+| Modularity | ✅ | Metode optimasi dapat diganti tanpa mengubah sistem lain |
+| Controllability | ✅ | Parameter diatur melalui konfigurasi |
+| Measurability | ✅ | Sistem otomatis mencatat metrik performa |
 
 ---
 
-## Refleksi
+## ⚙️ Experimental Setup
 
-> Apa risiko jika sistem dibangun seperti produk (monolitik, fitur lengkap) lalu baru dilakukan eksperimen? Mengapa arsitektur modular penting untuk riset?
+**Input Data**  
+Simulasi request pengguna (login, akses materi, dll)
 
-**Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+**Parameter**
+- Jumlah user: 50, 100, 200  
+- Metode: caching / load balancing  
+
+**Output**
+- Response time (ms)  
+- Throughput (request/second)  
+- Disimpan dalam format CSV  
+
+---
+
+## 🔬 Ablation Study (Perbandingan Metode)
+
+| Kondisi | Caching | Load Balancing | Hasil yang Diharapkan |
+|---------|--------|---------------|----------------------|
+| Baseline | ❌ | ❌ | Performa dasar |
+| Caching | ✅ | ❌ | Response time lebih cepat |
+| Load Balancing | ❌ | ✅ | Throughput meningkat |
+
+---
+
+## 🧠 Justifikasi Desain
+
+Arsitektur ini dirancang modular agar setiap variabel dapat diuji secara terpisah (variable isolation). Dengan pendekatan ini, perubahan pada metode optimasi tidak mempengaruhi komponen lain, sehingga hasil eksperimen lebih valid dan dapat direproduksi.
+
+---
+
+## 🔁 Reproducibility
+
+- Semua parameter eksperimen dapat diatur melalui konfigurasi  
+- Skenario pengujian dibuat konsisten  
+- Output disimpan dalam format terstruktur  
+
+---
+
+## ✍️ Refleksi
+
+Jika sistem dibangun seperti produk (monolitik), maka sulit untuk memisahkan pengaruh tiap variabel. Hal ini dapat menyebabkan hasil eksperimen menjadi bias.
+
+Arsitektur modular memungkinkan setiap komponen diuji secara independen, sehingga hasil penelitian lebih akurat dan dapat dipertanggungjawabkan secara ilmiah.
+
+---
