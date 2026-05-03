@@ -1,10 +1,13 @@
+
+---
+
 # WS-06: System-Experiment Mapping & Architecture
 
 > Bab 6 — System Design sebagai Experimental Artifact
 
-**Nama** : Ahmad Sultoni  
-**NIM** : 240202850  
-**Mata Kuliah** : Research & Teknologi Informasi (RTI)  
+**Nama** : Ahmad Sultoni
+**NIM** : 240202850
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)
 
 ---
 
@@ -28,94 +31,104 @@ D --> E
 
 E --> F[Database<br>(MySQL)]
 F --> G[Monitoring & Logging<br>(Grafana / Logs)]
- 
+```
+
 ---
 
-## 🔍 Penjelasan
+## 🔍 Penjelasan Arsitektur
 
-Arsitektur ini dirancang secara modular untuk mendukung eksperimen perbandingan metode optimasi sistem. Load generator digunakan untuk mensimulasikan beban pengguna, sedangkan web server dan application server menangani request utama.
+Arsitektur sistem dirancang secara modular untuk memastikan setiap komponen memiliki peran yang jelas dalam eksperimen. Load generator digunakan untuk mensimulasikan banyak pengguna secara bersamaan sehingga sistem dapat diuji dalam kondisi beban tinggi.
 
-Bagian utama penelitian terletak pada optimization layer, yang memungkinkan pengujian metode caching dan load balancing secara terpisah. Monitoring & logging digunakan untuk mengukur response time dan throughput sebagai variabel dependen.
+Web server berfungsi menerima request dan meneruskannya ke application server yang menjalankan logika utama sistem e-learning, seperti autentikasi dan akses materi. Pada bagian ini digunakan lebih dari satu application server untuk mendukung skenario load balancing.
 
-Pendekatan ini memastikan isolasi variabel, sehingga hasil eksperimen lebih valid dan dapat direproduksi.
+Fokus utama penelitian berada pada bagian optimization layer, di mana metode caching dan load balancing diuji secara terpisah. Monitoring dan logging digunakan untuk mencatat response time dan throughput secara otomatis sebagai dasar analisis performa.
 
+Pendekatan ini memastikan bahwa setiap perubahan hanya terjadi pada variabel yang diuji, sehingga hasil eksperimen tetap valid dan dapat direproduksi.
 
+---
 
 ## 🔗 SYSTEM-EXPERIMENT MAPPING
 
-**Research Question**  
-Apakah metode caching menghasilkan response time yang lebih rendah dibandingkan load balancing pada sistem e-learning dengan jumlah pengguna tinggi?
+**Research Question**
+Apakah metode caching menghasilkan response time yang lebih rendah dibandingkan load balancing pada sistem e-learning berbasis web dengan jumlah pengguna tinggi?
 
 ---
 
 ### Variable → Component Mapping
 
-| Variabel | Tipe | Komponen Sistem | Cara Manipulasi / Pengukuran |
-|----------|------|-----------------|------------------------------|
-| Metode optimasi | IV | Optimization Layer | Mengaktifkan caching atau load balancing melalui konfigurasi |
-| Response time | DV | Monitoring & Logging | Mengukur waktu respon dari request |
-| Throughput | DV | Monitoring & Logging | Menghitung request per detik |
-| Jumlah user | CV | Load Generator | Mengatur jumlah user |
-| Spesifikasi server | CV | Server Configuration | Dijaga tetap sama |
-| Skenario request | CV | Load Script | Digunakan sama untuk semua pengujian |
+| Variabel                                    | Tipe | Komponen Sistem      | Cara Manipulasi / Pengukuran            |
+| ------------------------------------------- | ---- | -------------------- | --------------------------------------- |
+| Metode optimasi (caching vs load balancing) | IV   | Optimization Layer   | Mengaktifkan metode melalui konfigurasi |
+| Response time                               | DV   | Monitoring & Logging | Mengukur waktu respon                   |
+| Throughput                                  | DV   | Monitoring & Logging | Menghitung request per detik            |
+| Jumlah user                                 | CV   | Load Generator       | Menentukan jumlah user                  |
+| Spesifikasi server                          | CV   | Server Configuration | Dijaga tetap sama                       |
+| Skenario request                            | CV   | Load Script          | Menggunakan skenario yang sama          |
 
 ---
 
-## ✅ 4 Prinsip Desain
+## ✅ Evaluasi 4 Prinsip Desain
 
-| Prinsip | Status | Penjelasan |
-|---------|--------|-----------|
-| Traceability | ✅ | Setiap variabel terhubung ke komponen sistem |
-| Modularity | ✅ | Metode optimasi dapat diganti tanpa mengubah sistem lain |
-| Controllability | ✅ | Parameter diatur melalui konfigurasi |
-| Measurability | ✅ | Sistem otomatis mencatat metrik performa |
+| Prinsip         | Status | Penjelasan                                     |
+| --------------- | ------ | ---------------------------------------------- |
+| Traceability    | ✅      | Variabel terhubung dengan komponen sistem      |
+| Modularity      | ✅      | Metode bisa diganti tanpa mengubah sistem lain |
+| Controllability | ✅      | Parameter diatur melalui konfigurasi           |
+| Measurability   | ✅      | Sistem mencatat metrik otomatis                |
 
 ---
 
 ## ⚙️ Experimental Setup
 
-**Input Data**  
-Simulasi request pengguna (login, akses materi, dll)
+**Input Data**
+Simulasi aktivitas pengguna (login, akses materi, tugas)
 
 **Parameter**
-- Jumlah user: 50, 100, 200  
-- Metode: caching / load balancing  
+
+* Jumlah user: 50, 100, 200
+* Metode: caching / load balancing
 
 **Output**
-- Response time (ms)  
-- Throughput (request/second)  
-- Disimpan dalam format CSV  
+
+* Response time (ms)
+* Throughput (request/second)
+* Format CSV
 
 ---
 
-## 🔬 Ablation Study (Perbandingan Metode)
+## 🔬 Skenario Eksperimen
 
-| Kondisi | Caching | Load Balancing | Hasil yang Diharapkan |
-|---------|--------|---------------|----------------------|
-| Baseline | ❌ | ❌ | Performa dasar |
-| Caching | ✅ | ❌ | Response time lebih cepat |
-| Load Balancing | ❌ | ✅ | Throughput meningkat |
+| Skenario   | Caching | Load Balancing | Tujuan             |
+| ---------- | ------- | -------------- | ------------------ |
+| Baseline   | ❌       | ❌              | Performa awal      |
+| Skenario 1 | ✅       | ❌              | Uji caching        |
+| Skenario 2 | ❌       | ✅              | Uji load balancing |
+
+Setiap skenario dijalankan dengan parameter yang sama untuk memastikan perbandingan yang adil.
 
 ---
 
 ## 🧠 Justifikasi Desain
 
-Arsitektur ini dirancang modular agar setiap variabel dapat diuji secara terpisah (variable isolation). Dengan pendekatan ini, perubahan pada metode optimasi tidak mempengaruhi komponen lain, sehingga hasil eksperimen lebih valid dan dapat direproduksi.
+Desain sistem dibuat modular agar setiap variabel dapat diuji secara terpisah. Hal ini penting untuk memastikan bahwa hasil eksperimen benar-benar dipengaruhi oleh metode optimasi yang digunakan.
 
 ---
 
 ## 🔁 Reproducibility
 
-- Semua parameter eksperimen dapat diatur melalui konfigurasi  
-- Skenario pengujian dibuat konsisten  
-- Output disimpan dalam format terstruktur  
+* Parameter diatur melalui konfigurasi
+* Skenario pengujian konsisten
+* Output disimpan terstruktur
+* Lingkungan sistem tetap
 
 ---
 
 ## ✍️ Refleksi
 
-Jika sistem dibangun seperti produk (monolitik), maka sulit untuk memisahkan pengaruh tiap variabel. Hal ini dapat menyebabkan hasil eksperimen menjadi bias.
+Jika sistem dibuat seperti produk (monolitik), maka sulit memisahkan pengaruh tiap variabel. Hal ini dapat menyebabkan hasil eksperimen tidak valid.
 
-Arsitektur modular memungkinkan setiap komponen diuji secara independen, sehingga hasil penelitian lebih akurat dan dapat dipertanggungjawabkan secara ilmiah.
+Dengan arsitektur modular, setiap komponen dapat diuji secara independen sehingga hasil penelitian lebih akurat dan dapat dipertanggungjawabkan.
 
 ---
+
+
