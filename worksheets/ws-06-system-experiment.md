@@ -21,16 +21,16 @@ Arsitektur sistem ini dirancang sebagai *experimental artifact* untuk menguji pe
 
 ```mermaid
 graph TD
-A[Load Generator<br>(JMeter / Locust)] --> B[Web Server<br>(Nginx)]
+A[Load Generator\n(JMeter / Locust)] --> B[Web Server\n(Nginx)]
 
-B --> C[App Server A<br>(Backend API)]
-B --> D[App Server B<br>(Backend API)]
+B --> C[App Server A\n(Backend API)]
+B --> D[App Server B\n(Backend API)]
 
 C --> E[Optimization Layer]
 D --> E
 
-E --> F[Database<br>(MySQL)]
-F --> G[Monitoring & Logging<br>(Grafana / Logs)]
+E --> F[Database\n(MySQL)]
+F --> G[Monitoring & Logging\n(Grafana / Logs)]
 ```
 
 ---
