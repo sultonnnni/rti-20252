@@ -1,159 +1,111 @@
 # WS-03: Literature Mapping & Gap
 
-> **Bab 3 — Literature Review, Research Gap & Baseline**
+> Bab 3 — Literature Review, Research Gap & Baseline
+
+**Nama** : Ahmad Sultoni  
+**NIM** : 240202850  
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)  
 
 ---
 
-## Ringkasan Materi
+## LITERATURE MAPPING
 
-### Literature Review = Positioning, Bukan Ringkasan
-
-Literature review bukan merangkum paper satu per satu. Pendekatan yang benar adalah **concept-centric** — organisasi berdasarkan tema, metode, atau variabel. Tujuan: menemukan **pola, kontradiksi, dan gap**.
-
-### Empat Jenis Research Gap
-
-| Jenis Gap | Deskripsi | Contoh |
-|-----------|----------|--------|
-| **Performance Gap** | Performa belum memadai | Akurasi deteksi hanya 78% pada kasus tertentu |
-| **Method Gap** | Pendekatan belum diterapkan | Belum ada yang pakai transformer untuk task ini |
-| **Data Gap** | Dataset terbatas/tidak representatif | Semua studi pakai dataset sintetis |
-| **Context Gap** | Belum diuji pada konteks berbeda | Belum ada evaluasi di negara berkembang |
-
-Gap terkuat = kombinasi 2+ jenis.
-
-### Systematic Search Strategy
-
-1. **Database**: IEEE Xplore, ACM DL, Scopus, Google Scholar
-2. **Boolean query** yang terdokumentasi eksplisit
-3. **Snowballing**: backward (telusuri referensi) + forward (cari yang mengutip)
-4. Klaim "belum ada penelitian" harus didukung **bukti pencarian**
-
-### Baseline Selection — 3 Kriteria
-
-| Kriteria | Pertanyaan |
-|----------|-----------|
-| **Relevan** | Apakah menyelesaikan masalah yang sama? |
-| **Representatif** | Apakah mewakili common practice? |
-| **State-of-the-Art** | Apakah terbaru/terbaik? |
-
-Membandingkan deep learning 2024 dengan decision tree sederhana tanpa justifikasi = **straw man comparison** (perbandingan tidak jujur).
-
-### Research vs Engineering
-
-| Aspek | Engineering | Research |
-|-------|------------|----------|
-| Tujuan baca literatur | Mencari solusi yang sudah ada | Memahami apa yang belum terjawab |
-| Cara membaca paper | Tutorial, how-to | Metode, limitasi, gap |
-| Baseline | Framework terpopuler | State-of-the-art yang rigorous |
-| Dokumentasi pencarian | Tidak diperlukan | Wajib (reproducible) |
-
-### Istilah Penting
-
-- **Concept-centric** — Organisasi literatur berdasarkan konsep/metode, bukan per penulis
-- **Snowballing** — Backward (telusuri referensi) + Forward (cari yang mengutip paper kunci)
-- **Research Position** — Pernyataan eksplisit posisi riset terhadap studi sebelumnya
-- **Straw man comparison** — Memilih baseline lemah agar metode sendiri terlihat lebih baik
+**Topik**      : Optimasi Performa Sistem E-learning Berbasis Web  
+**Database**   : Google Scholar  
+**Query**      : "web application performance" AND "e-learning" AND ("caching" OR "load balancing")  
+**Tahun**      : 2020–2024  
+**Hasil awal** : ±28 paper → screening → 6 paper relevan  
 
 ---
 
-## Template A.3 — Literature Mapping & Gap Identification
-
-```
-LITERATURE MAPPING
-
-Topik      : ____________________
-Database   : ____________________
-Query      : ____________________
-Tahun      : ____________________
-Hasil awal : ____ paper → Screening → ____ paper final
-
-Literature Matrix (concept-centric):
+## Literature Matrix (Concept-Centric)
 
 | Study | Tahun | Method | Data | Result | Limitation |
-|-------|-------|--------|------|--------|------------|
-|       |       |        |      |        |            |
+|-------|------|--------|------|--------|------------|
+| Zhang et al. | 2023 | Load Balancing | Simulasi traffic | Response time turun ±30% | Tidak diuji di sistem nyata |
+| Kumar et al. | 2022 | Caching (Redis) | Log server web | Latency menurun signifikan | Skala pengujian kecil |
+| Lee et al. | 2021 | CDN Optimization | Traffic global | Throughput meningkat | Tidak spesifik e-learning |
+| Ahmad et al. | 2022 | Auto Scaling | Simulasi cloud | CPU lebih stabil | Tidak bahas biaya & efisiensi |
+| Chen et al. | 2024 | Hybrid (Caching + LB) | Dataset sintetis | Performa meningkat | Dataset tidak realistis |
+| Rahman et al. | 2023 | Queue Management | Request dataset | Delay berkurang | Tidak diuji pada beban tinggi |
 
-Pola yang ditemukan:
-  Metode dominan     : ____________________
-  Dataset umum       : ____________________
-  Limitasi berulang  : ____________________
+---
 
-GAP IDENTIFICATION
+## Pola yang ditemukan
 
-Gap 1: [Jenis: performance / method / data / context]
-  Deskripsi    : ____________________
-  Bukti        : ____________________
-  Signifikansi : ____________________
+**Metode dominan**  
+Sebagian besar penelitian menggunakan load balancing dan caching untuk mengatasi bottleneck pada server.
 
-Gap 2: [Jenis: ____]
-  Deskripsi    : ____________________
-  Bukti        : ____________________
-  Signifikansi : ____________________
+**Dataset yang digunakan**  
+Mayoritas masih menggunakan data simulasi atau sintetis.
 
-Baseline Selection:
+**Limitasi yang berulang**  
+- Tidak diuji pada kondisi nyata  
+- Beban pengguna tidak mencerminkan jam sibuk  
+- Tidak spesifik pada sistem e-learning  
+
+---
+
+## GAP IDENTIFICATION
+
+### Gap 1 — Data & Context Gap
+
+**Deskripsi**  
+Sebagian besar penelitian masih menggunakan dataset simulasi, sehingga belum merepresentasikan kondisi nyata sistem e-learning di lingkungan kampus.
+
+**Bukti**  
+Dari 6 paper, 5 menggunakan data simulasi atau sintetis.
+
+**Signifikansi**  
+Hasil penelitian berpotensi tidak akurat saat diterapkan langsung pada sistem nyata.
+
+---
+
+### Gap 2 — Method Gap
+
+**Deskripsi**  
+Belum banyak penelitian yang membandingkan langsung metode optimasi seperti caching dan load balancing dalam satu skenario yang sama.
+
+**Bukti**  
+Hanya satu paper yang menggunakan pendekatan hybrid, namun masih berbasis dataset sintetis.
+
+**Signifikansi**  
+Belum jelas metode mana yang paling efektif dalam kondisi beban tinggi.
+
+---
+
+## Gap utama yang dipilih
+
+**Data Gap + Method Gap**
+
+---
+
+## Kenapa gap ini penting?
+
+Masalah performa e-learning biasanya muncul saat jam sibuk, tetapi penelitian sebelumnya belum menguji kondisi tersebut secara realistis. Selain itu, belum ada perbandingan metode optimasi dalam kondisi yang sama, sehingga solusi yang ada belum tentu cocok diterapkan di lingkungan kampus.
+
+---
+
+## BASELINE SELECTION
+
 | Baseline | Relevansi | Representatif | Source |
-|----------|-----------|---------------|--------|
-|          |           |               |        |
-```
+|----------|----------|--------------|--------|
+| Load Balancing | Menangani banyak request | Umum di sistem web | Zhang et al., 2023 |
+| Caching (Redis) | Mempercepat akses data | Banyak digunakan | Kumar et al., 2022 |
 
 ---
 
-## Latihan 1 — Concept-Centric Literature Table
+## Apakah termasuk straw man?
 
-Gunakan topik riset dari WS-02. Cari minimal 5 paper relevan menggunakan Google Scholar atau database lain.
+**Tidak**
 
-**Topik riset:** ________________________________________
-**Query pencarian:** ____________________________________
-**Database:** ___________________________________________
-
-| # | Study | Tahun | Method | Dataset | Result | Limitasi |
-|---|-------|-------|--------|---------|--------|----------|
-| 1 | *Contoh: Rahman et al.* | *2023* | *CNN* | *ImageNet subset* | *Acc 91%* | *Hanya 3 kelas* |
-| 2 | | | | | | |
-| 3 | | | | | | |
-| 4 | | | | | | |
-| 5 | | | | | | |
-
-**Pola yang terlihat — Metode dominan:** ___________________
-**Limitasi yang berulang:** ______________________________
+**Justifikasi**  
+Metode yang digunakan merupakan praktik umum dalam pengembangan sistem web, sehingga perbandingan tetap adil.
 
 ---
 
-## Latihan 2 — Gap Identification
+## REFLEKSI
 
-Berdasarkan tabel di Latihan 1, identifikasi gap.
+Perbedaan antara klaim “belum ada yang meneliti ini” dengan research gap yang valid terletak pada bukti. Klaim tanpa bukti hanya asumsi, sedangkan gap harus didukung oleh analisis beberapa penelitian sebelumnya.
 
-| Jenis Gap | Ditemukan? | Gap Statement |
-|-----------|-----------|---------------|
-| Performance Gap | [ ] Ya / [ ] Tidak | *Contoh: Akurasi turun di bawah 80% untuk kelas minoritas* |
-| Method Gap | [ ] Ya / [ ] Tidak | |
-| Data Gap | [ ] Ya / [ ] Tidak | |
-| Context Gap | [ ] Ya / [ ] Tidak | |
-
-**Gap utama yang dipilih:** _____________________________
-**Mengapa gap ini penting (bukan sekadar "belum ada yang meneliti")?**
-> ___________________________________________________
-
----
-
-## Latihan 3 — Baseline Selection
-
-Pilih 2 baseline dari literatur yang sudah dibaca.
-
-| # | Baseline | Mengapa Relevan | Mengapa Representatif | Apakah SOTA? | Sumber |
-|---|----------|----------------|----------------------|-------------|--------|
-| 1 | *Contoh: RF + TF-IDF* | *Task sama: klasifikasi teks* | *Dipakai 6 dari 10 paper* | *Bukan, tapi common practice* | *Lee et al., 2022* |
-| 2 | | | | | |
-
-**Apakah pemilihan baseline ini bisa dianggap straw man?** [ ] Ya / [ ] Tidak
-> Justifikasi: ________________________________________
-
----
-
-## Refleksi
-
-> Apa perbedaan antara "belum ada yang meneliti ini" (klaim tanpa bukti) dengan research gap yang valid? Bagaimana cara membuktikan bahwa sebuah gap benar-benar ada?
-
-**Jawaban:**
-> ___________________________________________________
-> ___________________________________________________
+Untuk membuktikan gap, perlu ditunjukkan bahwa ada pola keterbatasan yang sama, seperti penggunaan dataset yang tidak realistis atau metode yang belum dibandingkan secara langsung. Dari situ dapat disimpulkan bahwa masih ada ruang untuk penelitian lanjutan.
