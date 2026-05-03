@@ -15,73 +15,31 @@ Arsitektur sistem ini dirancang sebagai *experimental artifact* untuk menguji pe
 ---
 
 ## 🧱 Arsitektur Sistem
-            +----------------------+
-            |   Load Generator     |
-            | (JMeter / Locust)    |
-            +----------+-----------+
-                       |
-                       v
-            +----------------------+
-            |     Web Server       |
-            |       (Nginx)        |
-            +----------+-----------+
-                       |
-    +------------------+------------------+
-    |                                     |
-    v                                     v
-    +------------------+ +------------------+
-| App Server A | | App Server B |
-| (Backend API) | | (Backend API) |
-+--------+---------+ +--------+---------+
-| |
-+------------------+-----------------+
-|
-v
-+----------------------+
-| Optimization Layer |
-|----------------------|
-| 1. Caching (Redis) |
-| 2. Load Balancer |
-+----------+-----------+
-|
-v
-+----------------------+
-| Database |
-| (MySQL) |
-+----------+-----------+
-|
-v
-+----------------------+
-| Monitoring & Logging |
-| (Grafana / Logs) |
-+----------------------+
 
+```mermaid
+graph TD
+A[Load Generator<br>(JMeter / Locust)] --> B[Web Server<br>(Nginx)]
+
+B --> C[App Server A<br>(Backend API)]
+B --> D[App Server B<br>(Backend API)]
+
+C --> E[Optimization Layer]
+D --> E
+
+E --> F[Database<br>(MySQL)]
+F --> G[Monitoring & Logging<br>(Grafana / Logs)]
+ 
 ---
 
-## 🔍 Penjelasan Komponen
+## 🔍 Penjelasan
 
-### 1. Load Generator
-Digunakan untuk mensimulasikan banyak pengguna secara bersamaan menggunakan tools seperti JMeter atau Locust.
+Arsitektur ini dirancang secara modular untuk mendukung eksperimen perbandingan metode optimasi sistem. Load generator digunakan untuk mensimulasikan beban pengguna, sedangkan web server dan application server menangani request utama.
 
-### 2. Web Server
-Menerima request dari pengguna dan meneruskannya ke application server.
+Bagian utama penelitian terletak pada optimization layer, yang memungkinkan pengujian metode caching dan load balancing secara terpisah. Monitoring & logging digunakan untuk mengukur response time dan throughput sebagai variabel dependen.
 
-### 3. Application Server
-Menjalankan logika sistem e-learning seperti login, akses materi, dan pengumpulan tugas.
+Pendekatan ini memastikan isolasi variabel, sehingga hasil eksperimen lebih valid dan dapat direproduksi.
 
-### 4. Optimization Layer (Fokus Penelitian)
-- **Caching (Redis):** Menyimpan data yang sering diakses untuk mempercepat respon  
-- **Load Balancing:** Mendistribusikan request ke beberapa server  
 
-⚠️ Kedua metode diuji secara terpisah untuk menjaga keadilan eksperimen.
-
-### 5. Database
-Menyimpan seluruh data sistem e-learning.
-
-### 6. Monitoring & Logging
-Mengukur response time, throughput, dan performa sistem lainnya.
-
----
 
 ## 🔗 SYSTEM-EXPERIMENT MAPPING
 
