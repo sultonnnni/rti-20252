@@ -21,19 +21,29 @@ Arsitektur sistem ini dirancang sebagai *experimental artifact* untuk menguji pe
 
 ```mermaid
 graph TD
-A[Load Generator\n(JMeter / Locust)] --> B[Web Server\n(Nginx)]
+A[Load Generator] --> B[Web Server]
 
-B --> C[App Server A\n(Backend API)]
-B --> D[App Server B\n(Backend API)]
+B --> C[App Server A]
+B --> D[App Server B]
 
 C --> E[Optimization Layer]
 D --> E
 
-E --> F[Database\n(MySQL)]
-F --> G[Monitoring & Logging\n(Grafana / Logs)]
+E --> F[Database]
+F --> G[Monitoring and Logging]
 ```
 
----
+### Keterangan Komponen
+
+- Load Generator menggunakan JMeter atau Locust untuk simulasi pengguna  
+- Web Server menggunakan Nginx  
+- App Server menjalankan backend API sistem e-learning  
+- Database menggunakan MySQL  
+- Monitoring and Logging digunakan untuk mencatat response time dan throughput  
+
+
+
+
 
 ## 🔍 Penjelasan Arsitektur
 
