@@ -60,7 +60,7 @@ Pada skenario *load balancing*, Nginx akan membagi beban secara merata ke App Se
 
 Pemisahan layer yang rigid ini krusial agar konfigurasi performa bisa diaktifkan atau dinonaktifkan secara independen via file konfigurasi (`.env` atau `nginx.conf`) tanpa perlu mengubah struktur kode program e-learning.
 
----
+
 
 ## 🔗 SYSTEM-EXPERIMENT MAPPING
 
@@ -68,7 +68,7 @@ Pemisahan layer yang rigid ini krusial agar konfigurasi performa bisa diaktifkan
 
 Bagaimana pengaruh implementasi arsitektur Hybrid (Load Balancing Nginx & Redis Caching) dibandingkan dengan sistem tanpa optimasi terhadap reduksi *response time* dan peningkatan *throughput* e-learning pada kondisi beban puncak?
 
----
+
 
 ### Variable → Component Mapping
 
@@ -81,7 +81,7 @@ Bagaimana pengaruh implementasi arsitektur Hybrid (Load Balancing Nginx & Redis 
 | **Spesifikasi Hardware** | CV | Server Environment | Memastikan spek VM (CPU, RAM, Storage) identik di tiap sesi pengujian. |
 | **Skenario Aktivitas** | CV | JMeter Test Plan (`.jmx`) | Menggunakan urutan aksi yang sama: Login -> Buka Materi -> Tugas. |
 
----
+
 
 ## ✅ Evaluasi 4 Prinsip Desain
 
@@ -92,7 +92,7 @@ Bagaimana pengaruh implementasi arsitektur Hybrid (Load Balancing Nginx & Redis 
 | **Controllability** | ✅ *Passed* | Beban uji dikendalikan penuh lewat skrip load generator, parameter arsitektur diatur via environment variables. |
 | **Measurability** | ✅ *Passed* | Metrik performa dicatat secara kuantitatif dalam format numerik murni (milidetik dan request/detik) via Grafana. |
 
----
+
 
 ## ⚙️ Experimental Setup
 
@@ -109,7 +109,7 @@ Skrip automasi HTTP Request yang mensimulasikan aktivitas siber mahasiswa pada m
 
 * File log performa mentah berformat CSV berisi timestamp, latency, response code, dan status sukses.
 
----
+
 
 ## 🔬 Skenario Eksperimen
 
@@ -120,13 +120,13 @@ Skrip automasi HTTP Request yang mensimulasikan aktivitas siber mahasiswa pada m
 | **Skenario 2 (LB Only)** | (2 App Server) | ❌ | Menguji efisiensi pembagian beban komputasi CPU di level backend. |
 | **Skenario 3 (Hybrid)** | (2 App Server) |  | Menguji performa puncak saat redundansi server dan akselerasi data digabungkan (Solusi Usulan). |
 
----
+
 
 ## 🧠 Justifikasi Desain
 
 Desain modular ini dipilih sengaja untuk menghindari *confounding variables* (variabel pengganggu). Jika sistem dibangun secara monolitik tanpa pembatasan layer, sulit membuktikan apakah penurunan latency dipengaruhi oleh efisiensi database atau pembagian beban CPU server. Dengan memisahkan Nginx dan Redis, kontribusi masing-masing teknologi dapat diisolasi dan dianalisis secara adil.
 
----
+
 
 ## 🔁 Reproducibility
 
@@ -136,7 +136,7 @@ Untuk menjamin eksperimen ini bisa direplikasi oleh peneliti lain dari nol:
 2. Skrip pengujian JMeter disimpan dalam format file `.jmx` di dalam repositori.
 3. Versi dari setiap software pendukung (Nginx, Redis, MySQL) dikunci pada versi spesifik.
 
----
+
 
 ## ✍️ Refleksi
 
