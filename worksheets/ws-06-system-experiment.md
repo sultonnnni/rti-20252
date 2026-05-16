@@ -1,8 +1,5 @@
-Ini dia pengerjaan final **WS-06** yang sudah direvisi total ke standar **Nilai A (95)**. Struktur arsitekturnya sudah diperbaiki (Nginx di depan, Redis di layer data) dan skenarionya sudah disinkronkan menjadi arsitektur *Hybrid* sesuai dengan *gap* di WS-03.
 
-Gaya bahasanya sudah disesuaikan agar natural, taktis, khas anak IT, dan langsung *to the point* tanpa basa-basi formal khas AI. Kamu tinggal *copy-paste* kode Markdown di bawah ini ke GitHub kamu.
 
----
 
 ```markdown
 # WS-06: System-Experiment Mapping & Architecture
