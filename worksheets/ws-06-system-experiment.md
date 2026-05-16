@@ -1,7 +1,7 @@
 
 
 
-```markdown
+
 # WS-06: System-Experiment Mapping & Architecture
 
 > Pertemuan 06 — System Design sebagai Experimental Artifact
@@ -142,7 +142,5 @@ Untuk menjamin eksperimen ini bisa direplikasi oleh peneliti lain dari nol:
 
 Jika arsitektur dibuat seperti produk komersial siap pakai, fokus utamanya hanya pada stabilitas ujung ke ujung. Namun, sebagai arsitek eksperimen ilmiah, arsitektur harus dirancang agar bisa "gagal" di bagian tertentu secara terkontrol. Struktur modular ini memungkinkan kita melihat dengan jelas di titik mana *baseline* runtuh, dan seberapa besar modifikasi arsitektur hybrid mampu menunda atau menyelesaikan kegagalan sistem tersebut.
 
-```
-***
 
 ```
