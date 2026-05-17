@@ -4,7 +4,7 @@
 
 # WS-06: System-Experiment Mapping & Architecture
 
-> Pertemuan 06 — System Design sebagai Experimental Artifact
+Pertemuan 06 — System Design sebagai Experimental Artifact
 
 **Nama** : Ahmad Sultoni  
 **NIM** : 240202850  
