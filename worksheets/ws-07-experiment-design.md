@@ -2,6 +2,7 @@
 # WS-07: Experimental Design & Validity
 
  Pertemuan 07 — Desain Eksperimen & Validitas Validasi Infrastruktur
+
  **Nama** : Ahmad Sultoni
  **NIM** : 240202850
  **Mata Kuliah** : Research & Teknologi Informasi (RTI)
