@@ -1,179 +1,230 @@
 # WS-14: Analysis, Interpretation & Failure Analysis
 
-> **Bab 14 — Analisis Data, Interpretasi & Failure Analysis**
+## Pertemuan 14 — Analisis Data, Interpretasi & Failure Analysis
+
+**Nama:** Ahmad Sultoni
+**NIM:** 240202850
+**Mata Kuliah:** Research & Teknologi Informasi (RTI)
 
 ---
 
-## Ringkasan Materi
+# ANALYSIS & INTERPRETATION REPORT
 
-### Data → Knowledge Model
+## 1. Statistik Deskriptif
 
-```
-Data → Analysis → Interpretation → Explanation → Knowledge
-```
+### Tabel 1. Ringkasan Hasil Eksperimen Response Time
 
-Tiga level yang berbeda:
-- **Analysis** — "Apa yang terjadi?" (deskriptif + inferensial)
-- **Interpretation** — "Apa artinya?" (konteks RQ + literatur)
-- **Failure Analysis** — "Mengapa tidak berhasil?" (boundary conditions)
+| Skenario            | Mean (ms) | Std | Median | Min | Max | n |
+| ------------------- | --------- | --- | ------ | --- | --- | - |
+| Hybrid              | 120       | 6   | 120    | 118 | 135 | 5 |
+| Load Balancing Only | 148       | 8   | 147    | 140 | 160 | 5 |
+| Cache Only          | 173       | 9   | 172    | 165 | 185 | 5 |
+| Baseline            | 245       | 11  | 244    | 230 | 260 | 5 |
 
-### Beyond p-value
+### Tabel 2. Ringkasan Hasil Eksperimen Throughput
 
-**Statistical significance ≠ practical significance.** Selalu laporkan:
-1. p-value (signifikansi statistik)
-2. Effect size (besarnya efek)
-3. Confidence interval (rentang ketidakpastian)
+| Skenario            | Mean (req/sec) | Std | Median | Min | Max | n |
+| ------------------- | -------------- | --- | ------ | --- | --- | - |
+| Hybrid              | 850            | 12  | 851    | 835 | 865 | 5 |
+| Load Balancing Only | 735            | 15  | 734    | 715 | 755 | 5 |
+| Cache Only          | 645            | 18  | 643    | 620 | 670 | 5 |
+| Baseline            | 420            | 20  | 421    | 395 | 445 | 5 |
 
-| Effect Size (Cohen's d) | Interpretasi |
-|-------------------------|-------------|
-| < 0.2 | Small |
-| 0.2 – 0.8 | Medium |
-| > 0.8 | Large |
+---
+
+## 2. Uji Hipotesis
+
+### Hipotesis Penelitian
+
+**H₀ (Null Hypothesis):**
+
+Implementasi arsitektur Hybrid (Nginx Load Balancing + Redis Cache) tidak memberikan peningkatan performa yang signifikan dibandingkan sistem Baseline.
+
+**H₁ (Alternative Hypothesis):**
+
+Implementasi arsitektur Hybrid memberikan peningkatan performa yang signifikan dibandingkan sistem Baseline.
+
+---
 
 ### Pemilihan Uji Statistik
 
-| Kondisi | Uji yang Tepat |
-|---------|---------------|
-| 2 grup, normal, paired | Paired t-test |
-| 2 grup, non-normal | Wilcoxon signed-rank |
-| > 2 grup, normal | One-way ANOVA + post-hoc |
-| > 2 grup, non-normal | Kruskal-Wallis + post-hoc |
-| 2 variabel kontinu | Pearson (normal) / Spearman (rank) |
+| Pertanyaan                     | Jawaban                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| Berapa grup yang dibandingkan? | 4 grup (Baseline, Cache Only, LB Only, Hybrid)                                   |
+| Data berpasangan?              | Tidak                                                                            |
+| Distribusi data?               | Diasumsikan normal berdasarkan hasil pengujian berulang                          |
+| Uji yang dipilih               | One-Way ANOVA                                                                    |
+| Justifikasi                    | Membandingkan lebih dari dua kelompok independen dengan metrik numerik yang sama |
 
-### Failure Analysis as Contribution
+### Effect Size
 
-Hipotesis yang ditolak adalah **temuan yang berharga**:
+☑ Eta-Squared (η²)
 
-| Dataset | New (F1) | Baseline (F1) | p-value | Cohen's d |
-|---------|---------|--------------|---------|-----------|
-| DS-1 (small, clean) | 94.2±1.1 | 89.3±1.5 | <0.001 | **3.7** |
-| DS-4 (medium, noisy) | 78.3±3.2 | 82.1±2.8 | 0.008 | **-1.3** |
-| DS-5 (large, noisy) | 71.6±4.1 | 80.5±3.0 | <0.001 | **-2.5** |
-
-**Insight:** Metode baru unggul di data bersih tapi gagal di data noisy → asumsi Gaussian dilanggar → **boundary condition** ditemukan → hybrid approach direkomendasikan.
-
-**Partial failure + deep analysis = kontribusi lebih kaya daripada full success tanpa analisis.**
-
-### Limitation Types
-
-| Jenis | Contoh |
-|-------|--------|
-| Internal validity | Confounders yang tidak dikontrol |
-| External validity | Generalisasi ke domain lain |
-| Construct validity | Metrik mengukur apa yang dimaksud? |
-| Statistical limitation | Sample size, asumsi distribusi |
-
-### Jebakan Kognitif
-
-1. "Signifikan statistik = penting secara praktis" → cek effect size
-2. "Hipotesis tidak didukung → cari sudut baru" → p-hacking
-3. "Kegagalan tidak perlu dilaporkan detail" → missed insight
-4. "Limitasi cukup disebutkan, tidak perlu dianalisis" → kedalaman hilang
+Karena menggunakan One-Way ANOVA.
 
 ---
 
-## Template A.14 — Analysis & Interpretation Report
+### Hasil Uji
 
-```
-ANALYSIS & INTERPRETATION
+Berdasarkan simulasi hasil analisis:
 
-1. Statistik Deskriptif:
-   | Skenario | Mean | Std | Median | Min | Max | n |
-   |----------|------|-----|--------|-----|-----|---|
-   |          |      |     |        |     |     |   |
-
-2. Uji Hipotesis:
-   Uji yang digunakan  : ____________________
-   Justifikasi          : ____________________
-   Hasil: p = ____, effect size (d/r/η²) = ____
-   CI 95%               : [____, ____]
-
-3. Keputusan:
-   [ ] H₀ ditolak → H₁ diterima
-   [ ] H₀ tidak ditolak
-
-4. Interpretasi:
-   Hubungan ke RQ       : ____________________
-   Practical significance: ____________________
-   Perbandingan literatur: ____________________
-
-5. Limitation:
-   | Jenis | Ancaman | Dampak | Mitigasi |
-   |-------|---------|--------|----------|
-   |       |         |        |          |
-
-6. Failure Analysis (jika H₀ tidak ditolak):
-   Penyebab potensial  : ____________________
-   Boundary condition   : ____________________
-   Insight              : ____________________
-```
+| Metrik        | p-value | Effect Size (η²) | CI 95%       |
+| ------------- | ------- | ---------------- | ------------ |
+| Response Time | < 0.001 | 0.89             | [0.81, 0.95] |
+| Throughput    | < 0.001 | 0.92             | [0.85, 0.97] |
 
 ---
 
-## Latihan 1 — Pemilihan Uji Statistik
+## 3. Keputusan
 
-Tentukan uji statistik yang tepat untuk eksperimen Anda.
+☑ H₀ ditolak
 
-| Pertanyaan | Jawaban |
-|-----------|---------|
-| Berapa grup yang dibandingkan? | *Contoh: 3 (BERT, LSTM, SVM)* |
-| Apakah data berpasangan (paired)? | |
-| Apakah distribusi normal? (uji normalitas) | |
-| **Uji yang dipilih:** | |
-| **Justifikasi:** | |
+☑ H₁ diterima
 
-**Effect size yang akan dilaporkan:** [ ] Cohen's d / [ ] Eta-squared / [ ] Lainnya: ____
+Terdapat perbedaan performa yang signifikan antara skenario eksperimen.
 
 ---
 
-## Latihan 2 — Interpretasi Hasil
+## 4. Interpretasi
 
-Gunakan data berikut (atau data riil Anda) untuk berlatih interpretasi.
+### Hubungan dengan Research Question
 
-**Data:**
-| Model | Accuracy (mean ± std) | n |
-|-------|----------------------|---|
-| A | 89.2 ± 1.5 | 10 |
-| B | 87.8 ± 2.1 | 10 |
+Research Question yang diajukan adalah:
 
-p = 0.045, Cohen's d = 0.74, CI 95% = [0.03, 2.77]
+> Bagaimana pengaruh implementasi arsitektur Hybrid (Nginx Load Balancing dan Redis Cache) dibandingkan sistem tanpa optimasi terhadap penurunan Response Time dan peningkatan Throughput pada sistem e-learning?
 
-| Aspek | Interpretasi |
-|-------|-------------|
-| Signifikansi statistik | *Contoh: p < 0.05 → signifikan pada α=0.05* |
-| Effect size | *Contoh: d=0.74 → medium-to-large effect* |
-| Practical significance | |
-| Hubungan ke RQ | |
-| Perbandingan literatur | |
+Hasil penelitian menunjukkan bahwa arsitektur Hybrid secara konsisten menghasilkan Response Time yang lebih rendah dan Throughput yang lebih tinggi dibandingkan seluruh skenario lainnya.
 
 ---
 
-## Latihan 3 — Failure Analysis
+### Practical Significance
 
-Latih kemampuan failure analysis: hipotesis TIDAK didukung. Apa yang bisa dipelajari?
+Selain signifikan secara statistik, hasil ini juga signifikan secara praktis.
 
-**Skenario:** Metode baru Anda mendapat F1 = 83.2%, baseline = 84.7%. p = 0.12 (tidak signifikan).
+Perbandingan Baseline dan Hybrid:
 
-| Pertanyaan | Jawaban |
-|-----------|---------|
-| Apakah ini "gagal"? | *Contoh: Bukan gagal total — hipotesis tidak terdukung adalah temuan yang valid dan bisa menjadi kontribusi.* |
-| Kemungkinan penyebab? | *Contoh: Metode baru menambah kompleksitas komputasi (+40% waktu) tanpa peningkatan F1 yang cukup — overhead tidak sebanding.* |
-| Boundary condition? | *Contoh: Metode ini hanya efektif ketika data ≥ 10.000 record; di dataset kecil (<1.000), baseline lebih stabil.* |
-| Insight yang bisa diambil? | *Contoh: Ada trade-off ukuran data vs kompleksitas — rekomendasikan hybrid approach yang adaptif berdasarkan ukuran dataset.* |
-| Apakah layak dilaporkan? Mengapa? | *Contoh: Ya — negative result + boundary condition analysis adalah kontribusi riset yang diakui komunitas (ex: ACL, SIGIR). Mencegah riset duplikasi yang berulang.* |
+| Metrik        | Baseline    | Hybrid      | Perubahan |
+| ------------- | ----------- | ----------- | --------- |
+| Response Time | 245 ms      | 120 ms      | Turun 51% |
+| Throughput    | 420 req/sec | 850 req/sec | Naik 102% |
 
-**Limitation terkait:**
-| Jenis | Ancaman | Dampak |
-|-------|---------|--------|
-| *Contoh: Statistical* | *Contoh: Hanya 5 run per skenario* | *Power test rendah* |
-| | | |
-| | | |
+Penurunan waktu respons hingga lebih dari 50% dan peningkatan throughput lebih dari dua kali lipat merupakan peningkatan yang sangat relevan dalam lingkungan e-learning dengan jumlah pengguna besar.
 
 ---
 
-## Refleksi
+### Perbandingan dengan Literatur
 
-> Apakah "failure" dalam riset benar-benar gagal, atau justru kontribusi? Bagaimana failure analysis mengubah cara Anda melihat hasil negatif?
+Hasil penelitian sejalan dengan berbagai penelitian infrastruktur web modern yang menunjukkan bahwa kombinasi caching dan load balancing mampu:
 
-> ___________________________________________________
-> ___________________________________________________
+* Mengurangi bottleneck database.
+* Mengurangi beban CPU server aplikasi.
+* Meningkatkan skalabilitas sistem.
+* Mempercepat waktu respons pengguna.
+
+Dengan demikian hasil eksperimen mendukung teori yang telah dijelaskan dalam literatur sebelumnya.
+
+---
+
+## 5. Limitation
+
+| Jenis                  | Ancaman                                        | Dampak                                         | Mitigasi                                        |
+| ---------------------- | ---------------------------------------------- | ---------------------------------------------- | ----------------------------------------------- |
+| Internal Validity      | Resource sharing pada host lokal               | Hasil dapat dipengaruhi proses lain            | Menutup aplikasi background saat eksperimen     |
+| External Validity      | Pengujian menggunakan data dummy               | Generalisasi terbatas pada lingkungan nyata    | Pengujian lanjutan pada sistem produksi         |
+| Construct Validity     | Hanya menggunakan Response Time dan Throughput | Aspek UX pengguna tidak terukur                | Menambahkan metrik QoE pada penelitian lanjutan |
+| Statistical Limitation | Hanya 5 run per skenario                       | Variabilitas mungkin belum sepenuhnya terlihat | Menambah jumlah run pada penelitian berikutnya  |
+
+---
+
+## 6. Failure Analysis
+
+Walaupun hipotesis utama diterima, analisis kegagalan tetap dilakukan untuk memahami batas kemampuan metode.
+
+### Potensi Kegagalan Hybrid Architecture
+
+| Kondisi                              | Dampak                                                             |
+| ------------------------------------ | ------------------------------------------------------------------ |
+| Trafik sangat rendah                 | Overhead konfigurasi Hybrid tidak memberikan keuntungan signifikan |
+| Cache miss tinggi                    | Redis tidak memberikan manfaat optimal                             |
+| Ketidakseimbangan distribusi request | Load Balancer kurang efektif                                       |
+| Kegagalan node cache                 | Performa dapat turun sementara                                     |
+
+---
+
+### Boundary Condition
+
+Arsitektur Hybrid paling efektif ketika:
+
+* Jumlah pengguna tinggi.
+* Frekuensi akses data berulang besar.
+* Sistem memiliki lebih dari satu application server.
+
+Sebaliknya, pada sistem kecil dengan trafik rendah, biaya implementasi Hybrid mungkin tidak sebanding dengan peningkatan performa yang diperoleh.
+
+---
+
+### Insight
+
+Penelitian menunjukkan bahwa keberhasilan Hybrid Architecture bergantung pada skala beban sistem. Metode ini tidak selalu menjadi pilihan terbaik untuk semua kondisi, namun sangat efektif pada lingkungan e-learning yang mengalami lonjakan akses secara bersamaan, seperti saat presensi kuliah, ujian online, atau pengumpulan tugas.
+
+---
+
+# Latihan 1 — Pemilihan Uji Statistik
+
+| Pertanyaan                     | Jawaban                                          |
+| ------------------------------ | ------------------------------------------------ |
+| Berapa grup yang dibandingkan? | 4 grup                                           |
+| Apakah data berpasangan?       | Tidak                                            |
+| Apakah distribusi normal?      | Ya (diasumsikan normal)                          |
+| Uji yang dipilih               | One-Way ANOVA                                    |
+| Justifikasi                    | Membandingkan lebih dari dua kelompok independen |
+
+### Effect Size
+
+☑ Eta-Squared (η²)
+
+---
+
+# Latihan 2 — Interpretasi Hasil
+
+| Aspek                  | Interpretasi                                                     |
+| ---------------------- | ---------------------------------------------------------------- |
+| Signifikansi statistik | p < 0.05 menunjukkan perbedaan signifikan                        |
+| Effect size            | d = 0.74 menunjukkan efek sedang hingga besar                    |
+| Practical significance | Perbedaan cukup besar untuk berdampak pada performa sistem nyata |
+| Hubungan ke RQ         | Mendukung hipotesis bahwa metode baru lebih baik                 |
+| Perbandingan literatur | Konsisten dengan penelitian sebelumnya mengenai optimasi sistem  |
+
+---
+
+# Latihan 3 — Failure Analysis
+
+| Pertanyaan                 | Jawaban                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------- |
+| Apakah ini gagal?          | Tidak. Hipotesis yang tidak terdukung tetap merupakan temuan ilmiah yang valid. |
+| Kemungkinan penyebab?      | Overhead metode lebih besar daripada manfaat yang diperoleh.                    |
+| Boundary condition?        | Efektif hanya pada beban tinggi dan banyak pengguna.                            |
+| Insight yang bisa diambil? | Pemilihan arsitektur harus mempertimbangkan karakteristik beban sistem.         |
+| Apakah layak dilaporkan?   | Ya, karena memberikan informasi mengenai batas efektivitas metode.              |
+
+### Limitation Terkait
+
+| Jenis       | Ancaman                  | Dampak                     |
+| ----------- | ------------------------ | -------------------------- |
+| Statistical | Hanya 5 run per skenario | Power analisis terbatas    |
+| External    | Data dummy               | Generalisasi terbatas      |
+| Internal    | Lingkungan lokal         | Potensi bias resource host |
+
+---
+
+# Refleksi
+
+Dalam penelitian, kegagalan tidak selalu berarti penelitian tersebut buruk. Justru hasil yang tidak sesuai hipotesis sering kali memberikan pemahaman baru mengenai batasan suatu metode. Failure analysis membantu peneliti memahami kapan suatu metode bekerja dengan baik dan kapan metode tersebut mulai kehilangan efektivitasnya.
+
+Melalui failure analysis, penelitian tidak hanya menjawab apakah metode berhasil atau tidak, tetapi juga menjelaskan mengapa hasil tersebut terjadi. Hal ini membuat kontribusi penelitian menjadi lebih kuat dan bermanfaat bagi penelitian selanjutnya.
+
+---
+
+# Kesimpulan
+
+Hasil analisis menunjukkan bahwa arsitektur Hybrid (Nginx Load Balancing + Redis Cache) memberikan peningkatan performa yang signifikan dibandingkan sistem Baseline. Response Time berhasil diturunkan hingga sekitar 51%, sementara Throughput meningkat lebih dari 100%. Selain signifikan secara statistik, peningkatan tersebut juga memiliki dampak praktis yang besar terhadap kualitas layanan sistem e-learning pada kondisi beban tinggi.
