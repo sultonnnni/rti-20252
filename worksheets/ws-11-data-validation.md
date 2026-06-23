@@ -1,161 +1,249 @@
 # WS-11: Data Validation & Integrity
 
-> **Bab 11 — Validasi Data & Integritas**
+## Pertemuan 11 — Validasi Data & Integritas
+
+**Nama:** Ahmad Sultoni
+**NIM:** 240202850
+**Mata Kuliah:** Research & Teknologi Informasi (RTI)
 
 ---
 
-## Ringkasan Materi
+# Latihan 1 — Completeness Check
 
-### Data Trust Model
+Verifikasi dilakukan terhadap seluruh hasil eksperimen yang telah direncanakan pada WS-10.
 
-```
-Raw Data → Data Cleaning → Consistency Check → Validation Process → Trusted Data
-```
+| Skenario            | Run Direncanakan | Run Tercatat | Missing | Alasan |
+| ------------------- | ---------------- | ------------ | ------- | ------ |
+| Baseline            | 5                | 5            | 0       | —      |
+| Cache Only          | 5                | 5            | 0       | —      |
+| Load Balancing Only | 5                | 5            | 0       | —      |
+| Hybrid (LB + Cache) | 5                | 5            | 0       | —      |
 
-Data mentah belum bisa dipercaya. Harus melewati pipeline validasi sebelum siap untuk analisis statistik.
+### Ringkasan
 
-### Empat Pilar Data Quality
+* Total expected : 20 run
+* Total actual : 20 run
+* Missing : 0 run
 
-| Pilar | Deskripsi | Contoh Pelanggaran |
-|-------|----------|-------------------|
-| **Accuracy** | Nilai dalam range masuk akal | Akurasi = 1.5 (di luar [0,1]) |
-| **Consistency** | Format seragam di semua run | Run 1: CSV, Run 2: JSON |
-| **Completeness** | Tidak ada data hilang dari plan | 97 dari 100 run tercatat |
-| **Validity** | Data sesuai desain eksperimen | Parameter baseline tercampur treatment |
+### Keputusan untuk Data Missing
 
-### Proses Validasi Progresif
-
-1. **Format validation** — Tipe file, header, kolom
-2. **Range validation** — Nilai dalam batas logis
-3. **Consistency validation** — Format seragam antar-run
-4. **Logic validation** — Data cocok dengan desain eksperimen
-
-Jika gagal di langkah awal → tidak perlu lanjut.
-
-### Anomaly Detection — 3 Jenis
-
-| Jenis | Deskripsi | Deteksi |
-|-------|----------|---------|
-| **Statistical outlier** | Nilai di luar distribusi normal | IQR: < Q1-1.5×IQR atau > Q3+1.5×IQR |
-| **Contextual anomaly** | Normal absolut, abnormal dalam konteks | Run 1-10: ~91%, Run 11-20: ~88% |
-| **Pattern anomaly** | Pola sistematis (bukan random) | Performa menurun berurutan |
-
-**Prinsip:** Detect → Investigate → Document → Decide — **JANGAN langsung hapus.**
-
-### Engineering vs Research Validation
-
-| Aspek | Engineering | Research |
-|-------|-----------|---------|
-| Tujuan | Data sesuai spesifikasi bisnis | Data layak untuk analisis statistik |
-| Missing data | Impute / set default | Investigasi penyebab → dokumentasi |
-| Outlier | Bug → fix | Mungkin temuan → investigasi |
-| Dokumentasi | Minimal (log error) | Komprehensif (anomali + keputusan) |
-
-### Jebakan Kognitif
-
-1. "Logging otomatis ≠ data benar" → bisa ada bug di logger
-2. "Outlier = hapus" → bisa jadi temuan penting
-3. "Dataset kecil tidak perlu validasi" → justru lebih rentan
-4. "Mean normal = data benar" → [94, 95, 93, **44**, 94] → mean 84% terlihat wajar
+Tidak terdapat data yang hilang. Seluruh run yang direncanakan berhasil dieksekusi dan menghasilkan file log yang lengkap. Oleh karena itu tidak diperlukan proses imputasi maupun pengulangan eksperimen.
 
 ---
 
-## Template A.11 — Data Validation Checklist
+# Latihan 2 — Anomaly Investigation
 
-```
-DATA VALIDATION CHECKLIST
+Pengujian dilakukan menggunakan metrik utama Average Response Time (ms) pada skenario Hybrid.
 
-Completeness:
-  [ ] Semua skenario tercakup
-  [ ] Jumlah run sesuai rencana
-  [ ] Tidak ada file output hilang
-  Missing: ____ dari ____ data points
+## Dataset Sampel
 
-Format Consistency:
-  [ ] Semua file format sama (CSV/JSON/...)
-  [ ] Header konsisten
-  [ ] Tipe data konsisten (numerik tetap numerik)
+| Run | Response Time (ms) |
+| --- | ------------------ |
+| 1   | 118                |
+| 2   | 121                |
+| 3   | 119                |
+| 4   | 135                |
+| 5   | 120                |
 
-Range & Logic:
-  [ ] Nilai dalam range masuk akal
-  [ ] Tidak ada waktu negatif
-  [ ] Metrik 0–100%, tidak di luar range
-  Anomali ditemukan: ____________________
+### Perhitungan IQR
 
-Cross-Validation:
-  [ ] Run identik → hasil mendekati
-  [ ] Trend konsisten dengan ekspektasi teori
+Data terurut:
 
-Keputusan:
-  [ ] Data siap analisis
-  [ ] Perlu cleaning
-  [ ] Perlu re-run (skenario: ____)
+```text
+118, 119, 120, 121, 135
 ```
 
----
+* Q1 = 119
+* Q3 = 121
+* IQR = 2
 
-## Latihan 1 — Completeness Check
+Batas bawah:
 
-Verifikasi apakah semua data yang direncanakan sudah terkumpul.
+```text
+Q1 − 1.5 × IQR
+= 119 − 3
+= 116
+```
 
-| Skenario | Run Direncanakan | Run Tercatat | Missing | Alasan |
-|----------|-----------------|-------------|---------|--------|
-| *Contoh: BERT, DS-1* | *10* | *10* | *0* | *—* |
-| *LSTM, DS-3* | *10* | *8* | *2* | *OOM pada run 7 & 9* |
-| | | | | |
-| | | | | |
+Batas atas:
 
-**Total expected:** ____ | **Total actual:** ____ | **Missing:** ____
+```text
+Q3 + 1.5 × IQR
+= 121 + 3
+= 124
+```
 
-**Keputusan untuk data missing:**
-> ___________________________________________________
+### Hasil Deteksi
 
----
-
-## Latihan 2 — Anomaly Investigation
-
-Periksa data Anda untuk anomali. Gunakan metode IQR atau z-score.
-
-**Dataset sampel (atau data Anda sendiri):**
-
-| Run | Accuracy (%) |
-|-----|-------------|
-| 1 | *91.2* |
-| 2 | *90.8* |
-| 3 | *91.5* |
-| 4 | *78.3* |
-| 5 | *91.0* |
-
-**Deteksi outlier:**
-- Q1 = ____ | Q3 = ____ | IQR = ____
-- Batas bawah (Q1 - 1.5×IQR) = ____
-- Batas atas (Q3 + 1.5×IQR) = ____
-- Outlier terdeteksi: ____
-
-**Investigasi (untuk setiap outlier):**
-
-| Outlier | Nilai | Kemungkinan Penyebab | Keputusan |
-|---------|-------|---------------------|-----------|
-| *Run 4* | *78.3* | *Contoh: thermal throttling setelah 3 run berturut* | *Re-run dengan cooling interval* |
+* Batas bawah = 116
+* Batas atas = 124
+* Outlier terdeteksi = 135 ms (Run 4)
 
 ---
 
-## Latihan 3 — Validation Report
+## Investigasi Outlier
 
-Buat laporan validasi ringkas untuk dataset eksperimen Anda.
+| Outlier | Nilai  | Kemungkinan Penyebab                                                                  | Keputusan                                                                   |
+| ------- | ------ | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Run 4   | 135 ms | Lonjakan penggunaan CPU host akibat proses latar belakang saat eksperimen berlangsung | Tetap disimpan dan didokumentasikan sebagai anomali, tidak langsung dihapus |
 
-**1. Completeness:** ____% data terkumpul
-**2. Format:** [ ] Konsisten / [ ] Ada inkonsistensi: ____
-**3. Range check (anomali):** ____
-**4. Logic check:** [ ] Parameter sesuai plan / [ ] Ada ketidaksesuaian: ____
+### Hasil Investigasi
 
-**Kesimpulan:** [ ] Data siap analisis / [ ] Perlu tindakan: ____
+Nilai 135 ms berada di luar rentang distribusi normal hasil eksperimen. Setelah dilakukan pemeriksaan log Docker dan monitoring Grafana, ditemukan adanya peningkatan penggunaan CPU pada host selama periode pengujian tersebut.
+
+Karena penyebabnya dapat dijelaskan secara teknis dan data masih valid, run tersebut tidak dihapus. Data akan tetap dicantumkan pada analisis dengan dokumentasi anomali yang jelas.
 
 ---
 
-## Refleksi
+# Latihan 3 — Validation Report
 
-> Apa perbedaan antara "data yang benar" dan "data yang dipercaya"? Mengapa proses validasi formal diperlukan meskipun data dikumpulkan secara otomatis?
+## 1. Completeness
 
-> ___________________________________________________
-> ___________________________________________________
+100% data berhasil terkumpul.
+
+```text
+20 dari 20 run tersedia
+```
+
+---
+
+## 2. Format
+
+☑ Konsisten
+
+Seluruh hasil eksperimen menggunakan format CSV dan JSON dengan struktur field yang sama:
+
+```text
+Run_ID
+Timestamp
+Scenario
+Seed
+Response_Time
+Throughput
+Error_Rate
+CPU_Usage
+Memory_Usage
+```
+
+---
+
+## 3. Range Check
+
+Pemeriksaan dilakukan terhadap seluruh metrik.
+
+| Metrik        | Range Valid | Hasil |
+| ------------- | ----------- | ----- |
+| Response Time | > 0 ms      | Valid |
+| Throughput    | > 0 req/sec | Valid |
+| Error Rate    | 0–100%      | Valid |
+| CPU Usage     | 0–100%      | Valid |
+| Memory Usage  | 0–100%      | Valid |
+
+### Anomali Ditemukan
+
+* Satu outlier pada Response Time sebesar 135 ms.
+* Tidak ditemukan nilai negatif atau nilai di luar batas logis.
+
+---
+
+## 4. Logic Check
+
+☑ Parameter sesuai plan
+
+Validasi dilakukan dengan membandingkan log eksekusi terhadap Execution Plan pada WS-10.
+
+Hasil pemeriksaan:
+
+* Jumlah concurrent users = 200
+* Durasi pengujian = 10 menit
+* Dataset = 10.000 record
+* Konfigurasi Nginx dan Redis sesuai skenario
+* Seed sesuai daftar yang telah ditentukan
+
+Tidak ditemukan pencampuran parameter antara kelompok kontrol dan treatment.
+
+---
+
+# Data Validation Checklist
+
+## Completeness
+
+* [x] Semua skenario tercakup
+* [x] Jumlah run sesuai rencana
+* [x] Tidak ada file output hilang
+
+Missing: 0 dari 20 data points
+
+---
+
+## Format Consistency
+
+* [x] Semua file menggunakan format yang sama
+* [x] Header konsisten
+* [x] Tipe data konsisten
+
+---
+
+## Range & Logic
+
+* [x] Nilai berada dalam rentang masuk akal
+* [x] Tidak ada waktu negatif
+* [x] Tidak ada metrik di luar range
+
+Anomali ditemukan:
+
+```text
+Response Time = 135 ms pada Run 4
+```
+
+---
+
+## Cross Validation
+
+* [x] Run identik menghasilkan nilai yang mendekati
+* [x] Trend performa sesuai teori
+
+Urutan performa yang diperoleh:
+
+```text
+Hybrid
+   ↓
+Load Balancing + Cache
+
+Load Balancing Only
+   ↓
+
+Cache Only
+   ↓
+
+Baseline
+```
+
+Hasil ini konsisten dengan hipotesis penelitian pada WS-05.
+
+---
+
+# Keputusan
+
+☑ Data siap untuk analisis statistik
+
+Tidak diperlukan cleaning tambahan maupun re-run eksperimen karena seluruh data telah memenuhi aspek:
+
+* Accuracy
+* Consistency
+* Completeness
+* Validity
+
+---
+
+# Refleksi
+
+Data yang benar belum tentu merupakan data yang dipercaya. Data dapat terlihat benar secara kasat mata, tetapi masih mungkin mengandung kesalahan pencatatan, data hilang, inkonsistensi format, atau anomali yang belum terdeteksi.
+
+Sebaliknya, data yang dipercaya adalah data yang telah melalui proses validasi formal sehingga kualitas, konsistensi, dan kesesuaiannya dengan desain eksperimen dapat dibuktikan.
+
+Proses validasi tetap diperlukan meskipun data dikumpulkan secara otomatis karena sistem logging juga dapat mengalami kesalahan konfigurasi, bug perangkat lunak, atau kehilangan data selama proses pengumpulan. Dengan validasi formal, peneliti memiliki dasar yang kuat untuk menyatakan bahwa data layak digunakan dalam analisis dan penarikan kesimpulan ilmiah.
+
+### Kesimpulan
+
+Dataset penelitian telah memenuhi prinsip integritas data karena seluruh data lengkap, konsisten, berada dalam rentang logis, serta sesuai dengan desain eksperimen yang telah direncanakan. Oleh karena itu dataset dinyatakan siap digunakan pada tahap analisis statistik berikutnya.
