@@ -1,145 +1,151 @@
 # WS-12: Result Presentation & Visualization
 
-> **Bab 12 — Penyajian Hasil & Visualisasi**
+## Pertemuan 12 — Penyajian Hasil & Visualisasi
+
+**Nama:** Ahmad Sultoni
+**NIM:** 240202850
+**Mata Kuliah:** Research & Teknologi Informasi (RTI)
 
 ---
 
-## Ringkasan Materi
+# RESULT PRESENTATION PLAN
 
-### Data → Insight Model
+**Research Question:**
 
-```
-Validated Data → Structured Presentation → Visualization → Pattern Recognition → Insight
-```
+Bagaimana pengaruh implementasi arsitektur Hybrid (Nginx Load Balancing dan Redis Caching) dibandingkan sistem tanpa optimasi terhadap penurunan Response Time dan peningkatan Throughput pada sistem e-learning saat beban puncak?
 
-Penyajian **mendahului** analisis. Tabel dan grafik membantu peneliti "melihat" data sebelum menghitung. Langsung ke uji statistik tanpa visualisasi berisiko kesimpulan yang secara teknis benar tapi kontekstual salah (Anscombe's Quartet, 1973).
+**Metrik Utama:**
 
-### Tabel = Presisi, Grafik = Pola
-
-Keduanya **saling melengkapi**:
-- Tabel: angka presisi, self-contained (dipahami tanpa teks), sortable
-- Grafik: pola visual, tren, perbandingan cepat
-
-### Jenis Grafik Berdasarkan Tujuan
-
-| Tujuan | Jenis Grafik |
-|--------|-------------|
-| Perbandingan antar-skenario | Bar chart (grouped/stacked) |
-| Distribusi per-skenario | Box plot / violin plot |
-| Tren temporal | Line chart |
-| Korelasi dua variabel | Scatter plot |
-| Proporsi (total = 100%) | Pie chart (hati-hati!) |
-
-### Contoh Tabel Hasil yang Baik
-
-| Model | Accuracy (%) | F1-Score (%) | Training Time (min) |
-|-------|-------------|-------------|---------------------|
-| BERT | 88.4 ± 1.2 | 87.1 ± 1.4 | 45.2 ± 3.1 |
-| LSTM | 86.1 ± 1.8 | 84.5 ± 2.0 | 12.8 ± 1.2 |
-| SVM | 82.3 ± 0.9 | 80.7 ± 1.1 | 0.3 ± 0.1 |
-
-*N=10 per model. Mean ± std. Diurutkan berdasarkan Accuracy.*
-
-### Visualization Bias — Yang Harus Dihindari
-
-| Bias | Deskripsi | Dampak |
-|------|----------|--------|
-| Truncated axis | Y tidak dari 0 | Memperbesar perbedaan kecil |
-| Inconsistent scale | Dua grafik skala beda | Perbandingan menyesatkan |
-| Cherry-picked data | Hanya tampilkan yang "menang" | Selektif, tidak jujur |
-| 3D effects | Efek 3D tanpa dimensi data ke-3 | Distorsi tanpa informasi |
-| Missing error bar | Tidak ada variabilitas | Menyembunyikan ketidakpastian |
-
-### Engineering vs Research Presentation
-
-| Aspek | Engineering | Research |
-|-------|-----------|---------|
-| Tujuan grafik | Dashboard monitoring | Mendukung argumen ilmiah |
-| Informasi wajib | KPI, threshold | Mean, std, CI, N, p-value |
-| Bias handling | Less critical | Wajib dihindari (peer-review) |
+1. Response Time (ms)
+2. Throughput (req/sec)
 
 ---
 
-## Template A.12 — Result Presentation Plan
+# Latihan 1 — Tabel Hasil
 
-```
-RESULT PRESENTATION PLAN
+### Tabel 1. Hasil Pengujian Performa Sistem E-Learning (n = 5 Run per Skenario)
 
-Research Question : ____________________
-Metrik Utama      : ____________________
+| Skenario                              | Response Time (ms) Mean ± Std | Throughput (req/sec) Mean ± Std | n |
+| ------------------------------------- | ----------------------------- | ------------------------------- | - |
+| Hybrid (Load Balancing + Redis Cache) | 120 ± 6                       | 850 ± 12                        | 5 |
+| Load Balancing Only                   | 148 ± 8                       | 735 ± 15                        | 5 |
+| Cache Only                            | 173 ± 9                       | 645 ± 18                        | 5 |
+| Baseline                              | 245 ± 11                      | 420 ± 20                        | 5 |
 
-Tabel Hasil:
-| Skenario | Metrik 1 (mean ± std) | Metrik 2 (mean ± std) | n |
-|----------|----------------------|----------------------|---|
-|          |                      |                      |   |
+### Interpretasi Awal
 
-Visualisasi yang Direncanakan:
-| # | Jenis Grafik | Pesan Utama | Metrik |
-|---|-------------|-------------|--------|
-| 1 |             |             |        |
-| 2 |             |             |        |
-
-Bias Check:
-  [ ] Y-axis mulai dari 0 (atau dijustifikasi)
-  [ ] Error bar/CI ditampilkan
-  [ ] Semua data disertakan (tidak cherry-picked)
-  [ ] Tidak menggunakan 3D tanpa alasan
-```
+Berdasarkan nilai rata-rata, arsitektur Hybrid menghasilkan response time paling rendah dan throughput paling tinggi dibandingkan seluruh skenario lainnya. Hal ini menunjukkan bahwa kombinasi load balancing dan caching memberikan dampak positif terhadap performa sistem e-learning pada kondisi beban tinggi.
 
 ---
 
-## Latihan 1 — Tabel Hasil
+## Checklist Tabel
 
-Buat tabel hasil eksperimen Anda (boleh dengan data simulasi jika belum punya data riil).
-
-| Skenario | Metrik 1 (mean ± std) | Metrik 2 (mean ± std) | n |
-|----------|----------------------|----------------------|---|
-| *Contoh: BERT-base* | *88.4 ± 1.2%* | *45.2 ± 3.1 min* | *10* |
-| | | | |
-| | | | |
-
-**Checklist tabel:**
-- [ ] Self-contained (judul jelas, satuan ada, N tercantum)
-- [ ] Mean ± std (bukan single number)
-- [ ] Diurutkan berdasarkan metrik utama
-- [ ] Format konsisten di semua baris
+* [x] Self-contained (judul jelas, satuan ada, N tercantum)
+* [x] Mean ± Std ditampilkan
+* [x] Diurutkan berdasarkan metrik utama (Response Time)
+* [x] Format konsisten di seluruh tabel
 
 ---
 
-## Latihan 2 — Rencana Visualisasi
+# Latihan 2 — Rencana Visualisasi
 
-Rencanakan 2-3 grafik untuk menyajikan data dari Latihan 1. Setiap grafik = satu pesan.
+### Grafik 1
 
-| # | Jenis Grafik | Pesan | Data yang Digunakan |
-|---|-------------|-------|---------------------|
-| 1 | *Contoh: Bar chart + error bar* | *Perbandingan accuracy antar 3 model* | *Mean accuracy ± std* |
-| 2 | *Box plot* | *Distribusi F1 per model* | *Semua run F1* |
-| 3 | *Scatter plot* | *Trade-off accuracy vs training time* | *Mean accuracy vs mean time* |
+| Komponen     | Keterangan                                |
+| ------------ | ----------------------------------------- |
+| Jenis Grafik | Grouped Bar Chart + Error Bar             |
+| Pesan Utama  | Perbandingan Response Time antar skenario |
+| Data         | Mean Response Time ± Std                  |
 
----
+**Interpretasi yang diharapkan:**
 
-## Latihan 3 — Bias Detection
-
-Evaluasi visualisasi berikut untuk bias (skenario dari contoh):
-
-**Skenario:** Metode A = 91.2%, Metode B = 90.8%. Bar chart dengan Y-axis mulai dari 90%.
-
-| Pertanyaan | Jawaban |
-|-----------|---------|
-| Apakah Y-axis menyesatkan? | *Contoh: Ya — A terlihat 2× B padahal beda 0.4%* |
-| Apakah error bar ditampilkan? | |
-| Apakah semua kondisi ditampilkan? | |
-| Apa solusinya? | |
-
-**Evaluasi grafik Anda sendiri dari Latihan 2:**
-- [ ] Semua bias check lulus
-- [ ] Ada yang perlu diperbaiki: ____
+Hybrid memiliki waktu respons paling rendah sehingga memberikan pengalaman pengguna yang lebih baik dibandingkan skenario lainnya.
 
 ---
 
-## Refleksi
+### Grafik 2
 
-> Mengapa tabel dan grafik keduanya diperlukan — tidak cukup salah satu saja? Pernahkah Anda membuat grafik yang (tanpa sengaja) menyesatkan?
+| Komponen     | Keterangan                             |
+| ------------ | -------------------------------------- |
+| Jenis Grafik | Grouped Bar Chart + Error Bar          |
+| Pesan Utama  | Perbandingan Throughput antar skenario |
+| Data         | Mean Throughput ± Std                  |
 
-> ___________________________________________________
-> ___________________________________________________
+**Interpretasi yang diharapkan:**
+
+Hybrid mampu memproses lebih banyak request per detik dibandingkan Baseline maupun skenario ablation.
+
+---
+
+### Grafik 3
+
+| Komponen     | Keterangan                             |
+| ------------ | -------------------------------------- |
+| Jenis Grafik | Box Plot                               |
+| Pesan Utama  | Distribusi hasil antar-run             |
+| Data         | Seluruh hasil Response Time dari 5 run |
+
+**Interpretasi yang diharapkan:**
+
+Menunjukkan stabilitas performa setiap skenario serta mendeteksi kemungkinan outlier.
+
+---
+
+## Ringkasan Visualisasi
+
+| # | Jenis Grafik          | Pesan                          | Data yang Digunakan |
+| - | --------------------- | ------------------------------ | ------------------- |
+| 1 | Bar Chart + Error Bar | Perbandingan Response Time     | Mean ± Std          |
+| 2 | Bar Chart + Error Bar | Perbandingan Throughput        | Mean ± Std          |
+| 3 | Box Plot              | Distribusi dan Stabilitas Data | Semua Run           |
+
+---
+
+# Latihan 3 — Bias Detection
+
+### Evaluasi Contoh
+
+**Skenario:**
+
+* Metode A = 91.2%
+* Metode B = 90.8%
+* Y-Axis dimulai dari 90%
+
+| Pertanyaan                        | Jawaban                                                                                   |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| Apakah Y-axis menyesatkan?        | Ya. Selisih hanya 0.4% tetapi terlihat sangat besar karena skala dipotong mulai dari 90%. |
+| Apakah error bar ditampilkan?     | Tidak. Variasi data tidak terlihat.                                                       |
+| Apakah semua kondisi ditampilkan? | Ya.                                                                                       |
+| Apa solusinya?                    | Gunakan Y-axis dari 0 atau berikan justifikasi yang jelas, serta tambahkan error bar.     |
+
+---
+
+## Evaluasi Grafik Penelitian
+
+### Bias Check
+
+* [x] Y-axis dimulai dari 0 atau diberi justifikasi
+* [x] Error bar ditampilkan
+* [x] Semua skenario ditampilkan
+* [x] Tidak menggunakan efek 3D
+* [x] Tidak ada cherry-picking data
+
+### Hasil Evaluasi
+
+Semua visualisasi yang direncanakan telah memenuhi prinsip visualisasi ilmiah yang objektif dan dapat dipertanggungjawabkan.
+
+---
+
+# Refleksi
+
+Tabel dan grafik memiliki fungsi yang berbeda namun saling melengkapi. Tabel memberikan informasi numerik secara presisi sehingga pembaca dapat mengetahui nilai yang tepat dari setiap metrik. Sebaliknya, grafik membantu pembaca mengenali pola, tren, dan perbedaan antar-skenario secara cepat.
+
+Apabila hanya menggunakan tabel, pola performa sulit dikenali karena pembaca harus membandingkan banyak angka. Sebaliknya, jika hanya menggunakan grafik, informasi numerik detail menjadi hilang. Oleh karena itu penelitian ilmiah membutuhkan keduanya agar hasil dapat dipahami secara menyeluruh.
+
+Dalam praktiknya, grafik yang dibuat tanpa memperhatikan skala sumbu atau tanpa menampilkan error bar dapat menimbulkan interpretasi yang menyesatkan. Oleh karena itu setiap visualisasi harus melalui proses pengecekan bias sebelum digunakan sebagai dasar pengambilan kesimpulan.
+
+---
+
+# Kesimpulan
+
+Penyajian hasil penelitian dilakukan menggunakan kombinasi tabel dan grafik agar data lebih mudah dipahami. Berdasarkan hasil eksperimen, arsitektur Hybrid (Nginx Load Balancing + Redis Caching) menunjukkan performa terbaik dengan Response Time terendah dan Throughput tertinggi. Seluruh visualisasi dirancang mengikuti prinsip visualisasi ilmiah yang objektif, transparan, dan bebas bias sehingga siap digunakan pada tahap analisis statistik berikutnya.
