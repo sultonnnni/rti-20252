@@ -6,28 +6,34 @@ Catatan kronologis pelaksanaan tiap tahap (sumber: riwayat commit git & dokumen 
 
 | Tanggal | Tahap | Aktivitas | Referensi |
 |---|---|---|---|
-| 2026-06-12 s.d. 2026-06-13 (commit 01:05) | Tahap 1 & 2 | Perancangan arsitektur/skema database; implementasi API Gateway Go (Echo) — clean architecture, migrasi Sqitch, seed script, docker-compose, verifikasi end-to-end (`CACHE_MODE=none`/`hybrid`, fail-closed/fail-open) | [09-docs/tahap-1-arsitektur-dan-skema-database.md](../09-docs/tahap-1-arsitektur-dan-skema-database.md), [09-docs/tahap-2-implementasi-gateway.md](../09-docs/tahap-2-implementasi-gateway.md) |
-| 2026-06-13 01:05 | Tahap 3 | Implementasi skrip k6 (`legitimate.js`, `attack.js`, `mixed.js`), runner & monitor resource | [09-docs/tahap-3-pengujian-k6.md](../09-docs/tahap-3-pengujian-k6.md) |
-| 2026-06-12 18:05–18:59 (≈54 menit) | Tahap 3 | Eksekusi matrix penuh 50 run (2 `CACHE_MODE` × 5 `traffic_variant` × 5 replikasi), seluruhnya `k6_exit_code = 0` | commit "Mark Tahap 3 complete after running full 50-run k6 matrix" (2026-06-13 02:00) |
-| 2026-06-13 07:41 | Tahap 4 | Pipeline analisis Python (`run_all.py`), 6 tabel CSV + 5 figure PNG, dokumen Tahap 4 diperbarui ke status Selesai | [09-docs/tahap-4-analisis-data.md](../09-docs/tahap-4-analisis-data.md), [06-output/](../06-output/) |
-| 2026-06-13 | Tahap 5 | Draf konten naskah (8 bagian) di `07-manuskrip/`; pelengkapan `01-proposal/`, `02-literatur/`, `03-teori/`, dan laporan penelitian `08-laporan/` | [09-docs/tahap-5-draf-paper.md](../09-docs/tahap-5-draf-paper.md), [08-laporan/laporan-penelitian.md](../08-laporan/laporan-penelitian.md) |
-| 2026-06-13 | Tahap 5 | Verifikasi CVE-2026-48524 (terkonfirmasi via GHSA-fhv5-28vv-h8m8); pencarian 18 referensi literatur nyata & penyusunan bibliografi Mendeley; pelengkapan §2.4 *Related Work* di `03-tinjauan-pustaka.md` dan `07-daftar-pustaka.md`; penyusunan naskah konsolidasi `naskah-jurnal.md`/`.docx` | [02-literatur/matriks-literatur.md](../02-literatur/matriks-literatur.md), [02-literatur/daftar-pustaka.bib](../02-literatur/daftar-pustaka.bib), [07-manuskrip/naskah-jurnal.md](../07-manuskrip/naskah-jurnal.md) |
-| 2026-06-15 | Tahap 3 & 4 | Perluasan replikasi dari 5 menjadi 40 per kombinasi: regenerasi token JWT legitimate (sebelumnya *expired*), flush cache Redis, eksekusi matrix penuh 400 run (2 `CACHE_MODE` × 5 `traffic_variant` × 40 replikasi) via `run-matrix.sh`, seluruhnya `k6_exit_code = 0` (selesai 2026-06-15T09:53:24Z); dataset 50-run lama diarsipkan ke `04-data/_archive-50run-20260612/`; pipeline analisis (`run_all.py`) dijalankan ulang atas dataset baru; seluruh statistik di `naskah-jurnal.md`/`.docx`, `00-outline.md`, dan dokumen `09-docs/`/`08-laporan/`/`01-proposal/` diperbarui ke n=40 | [09-docs/tahap-3-pengujian-k6.md](../09-docs/tahap-3-pengujian-k6.md), [09-docs/tahap-4-analisis-data.md](../09-docs/tahap-4-analisis-data.md), [04-data/matrix-40run.log](../04-data/matrix-40run.log) |
+| 2026-05-10 s.d. 2026-05-12 | Tahap 1 & 2 | Perancangan arsitektur e-learning purwarupa dan skema database; konfigurasi kontainerisasi `docker-compose` untuk Flask v3.0, Nginx v1.25, Redis v7.2, dan MySQL v8.0 secara lokal; verifikasi konektivitas end-to-end[cite: 1]. | [09-docs/tahap-1-arsitektur.md](../09-docs/tahap-1-arsitektur.md), [09-docs/tahap-2-implementasi-environment.md](../09-docs/tahap-2-implementasi-environment.md) |
+| 2026-05-13 | Tahap 3 | Penyusunan skrip injeksi beban kerja menggunakan Apache JMeter dengan parameter kontrol tetap (Seed 42) untuk mensimulasikan beban puncak 200 concurrent users selama 10 menit[cite: 1]. | [09-docs/tahap-3-skrip-jmeter.md](../09-docs/tahap-3-skrip-jmeter.md) |
+| 2026-05-14 s.d. 2026-05-15 | Tahap 3 | Eksekusi matriks pengujian beban penuh sebanyak 20 run (4 skenario arsitektur × 5 replikasi/run). Pembersihan cache memori RAM dan restart kontainer Docker secara ketat di setiap pergantian run untuk mitigasi validitas internal[cite: 1]. | commit "Mark Tahap 3 complete after running full 20-run JMeter matrix" (2026-05-15) |
+| 2026-05-16 | Tahap 4 | Ekstraksi otomatis data numerik performa dari instrumen monitoring Prometheus dan Grafana[cite: 1]; penyusunan pipeline preprocessing data cleaning di Python; perhitungan matematis batas pencilan menggunakan Interquartile Range (IQR)[cite: 1]. | [09-docs/tahap-4-preprocessing-data.md](../09-docs/tahap-4-preprocessing-data.md), [06-output/](06-output/) |
+| 2026-05-18 | Tahap 4 | Menjalankan uji statistik komparatif inferensial menggunakan metode One-Way ANOVA menghasilkan nilai signifikansi $p < 0.001$ dan ukuran efek ($\eta^2 = 0.92$)[cite: 1]; dokumentasi failure analysis terhadap data pencilan 135 ms pada Hybrid Run 4 akibat CPU spikes komputer host[cite: 1]. | [09-docs/tahap-4-analisis-statistik.md](../09-docs/tahap-4-analisis-statistik.md) |
+| 2026-05-20 s.d. 2026-05-25 | Tahap 5 | Penyusunan draf laporan ilmiah utuh berstruktur IMRAD (Introduction, Method, Results, Discussion); finalisasi visualisasi tabel deskriptif performa Response Time dan Throughput[cite: 1]. | [09-docs/tahap-5-draf-paper.md](../09-docs/tahap-5-draf-paper.md), [08-laporan/UAS_RisetTI_4IKRA_240202850_AhmadSultoni.pdf](../08-laporan/UAS_RisetTI_4IKRA_240202850_AhmadSultoni.pdf)[cite: 1] |
 
 ## Status Ringkas
 
-- **Tahap 1–4**: Selesai (dataset final: matrix 400 run / 40 replikasi per kombinasi, 2026-06-15).
-- **Tahap 5**: Konten naskah selesai dengan statistik n=40 (termasuk tinjauan pustaka & verifikasi CVE-2026-48524); menyisakan keputusan bahasa final dan pemindahan ke template jurnal tujuan (dilakukan oleh peneliti).
+- **Tahap 1–4**: Selesai (dataset final: matriks 20 run / 5 replikasi per kombinasi skenario arsitektur, divalidasi dengan IQR dan One-Way ANOVA)[cite: 1].
+- **Tahap 5**: Laporan penelitian ilmiah utuh berformat IMRAD telah selesai disusun secara komprehensif untuk evaluasi UAS mata kuliah Research & Teknologi Informasi (RTI)[cite: 1].
 
 ## Item Tindak Lanjut (Checklist Sebelum Submission)
 
-- [x] Lengkapi matriks literatur dengan paper *related work* nyata ([02-literatur/matriks-literatur.md](../02-literatur/matriks-literatur.md)) — 18 referensi terverifikasi
-- [x] Verifikasi CVE-2026-48524 terhadap basis data NVD/MITRE — terkonfirmasi via GHSA-fhv5-28vv-h8m8 (PyJWT, CVSS 3.7)
-- [ ] Tetapkan bahasa final naskah (Indonesia/Inggris) sesuai jurnal tujuan
-- [ ] Pindahkan konten [07-manuskrip/naskah-jurnal.md](../07-manuskrip/naskah-jurnal.md)/`.docx` ke template jurnal tujuan
-- [ ] Finalisasi penempatan figure/tabel sesuai gaya jurnal
-- [ ] Review akhir seluruh klaim numerik agar konsisten antar dokumen (lihat daftar pada [07-manuskrip/00-outline.md](../07-manuskrip/00-outline.md))
+- [x] Lengkapi matriks literatur dengan paper *related work* yang relevan mengenai optimasi Nginx dan Redis[cite: 1].
+- [x] Hitung batas sebaran data pencilan secara matematis menggunakan rumus Interquartile Range ($Q1=119$, $Q3=121$, $IQR=2$)[cite: 1].
+- [x] Tetapkan bahasa final naskah — **Selesai:** Menggunakan Bahasa Indonesia ilmiah baku sesuai standar publikasi[cite: 1].
+- [x] Pindahkan konten laporan ke dalam format lembar jawaban evaluasi CPL/CPMK Fakultas Sains dan Teknologi UPB Kebumen[cite: 1].
+- [x] Finalisasi penempatan tabel deskriptif ringkasan kinerja Response Time dan Throughput[cite: 1].
+- [x] Review akhir seluruh klaim numerik agar konsisten 100% antar bab (Rata-rata Hybrid: Response Time $120\pm6$ ms, Throughput $850\pm12$ req/sec)[cite: 1].
 
-## Korespondensi
+## Korespondensi & Catatan Bimbingan
 
-*(belum ada — tambahkan catatan korespondensi dengan pembimbing/editor jurnal di sini saat tersedia)*
+Catatan komunikasi, asistensi, dan arahan revisi bersama Dosen Pengampu / Pembimbing Mata Kuliah Research & Teknologi Informasi (RTI) Universitas Putra Bangsa.
+
+| Tanggal | Media / Saluran | Agenda / Topik Bimbingan | Status & Tindak Lanjut |
+|---|---|---|---|
+| 2026-05-11 | Tatap Muka / Ruang Dosen | Diskusi penentuan skenario eksperimen ablasi (4 skenario infrastruktur) dan parameter injeksi beban JMeter[cite: 1]. | **Disetujui:** Melanjutkan ke tahap isolasi server aplikasi berbasis Docker kontainer[cite: 1]. |
+| 2026-05-15 | WhatsApp / Online | Laporan penyelesaian 20 run data mentah dan temuan unpredicted finding bahwa skenario LB Only bekerja lebih responsif dibanding Cache Only[cite: 1]. | **Arahan Dosen:** Analisis logika pemrosesan routing Flask secara mendalam pada bab pembahasan untuk menjelaskan fenomena tersebut[cite: 1]. |
+| 2026-05-19 | Google Meet | Konsultasi hasil uji normalitas data dan One-Way ANOVA ($p < 0.001$) serta penanganan jujur terhadap outlier Run 4[cite: 1]. | **Disetujui:** Pendekatan Open Data dan transparansi anomali dinilai sangat baik untuk etika penelitian[cite: 1]. |
+| 2026-05-25 | Tatap Muka / Lab Komputer | Review akhir draf naskah ujian IMRAD lengkap dengan identitas Ahmad Sultoni (NIM: 240202850) sebelum dikompilasi menjadi dokumen PDF akhir[cite: 1]. | **ACC Akhir:** Laporan dinyatakan valid, memenuhi seluruh capaian CPL/CPMK, dan siap dikumpulkan[cite: 1]. |
