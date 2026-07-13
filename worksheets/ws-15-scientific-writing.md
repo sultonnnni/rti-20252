@@ -1,177 +1,104 @@
 # WS-15: Scientific Writing
 
-> **Bab 15 — Penulisan Ilmiah**
+**Bab 15 — Penulisan Ilmiah**
+
+**Nama** : Ahmad Sultoni
+**NIM** : 240202850
+**Mata Kuliah** : Research & Teknologi Informasi (RTI)
 
 ---
 
-## Ringkasan Materi
+## PAPER STRUCTURE CHECKLIST
 
-### Scientific Argument Flow
-
-```
-Problem → Gap → RQ → Method → Result → Analysis → Conclusion → Contribution
-```
-
-Paper ilmiah adalah **satu argumen utuh** dari masalah ke kontribusi. Setiap node harus terhubung logis ke node sebelum dan sesudahnya.
-
-### Struktur IMRAD
-
-| Section | Peran | Pertanyaan Kunci |
-|---------|-------|-----------------|
-| **Introduction** | Motivasi + frame | Why is this needed? |
-| **Method** | Deskripsi (reproducible) | How was it done? |
-| **Results** | Laporan objektif | What was found? |
-| **Discussion** | Interpretasi + refleksi | What does it mean? |
-| **Conclusion** | Ringkasan + kontribusi | So what? |
-
-### Logical Flow — "Red Thread"
-
-Setiap paragraf menjawab satu pertanyaan dan memicu pertanyaan berikutnya. Alur logis ini harus terasa di tiga level:
-1. **Antar-kalimat** dalam paragraf
-2. **Antar-paragraf** dalam section
-3. **Antar-section** dalam paper
-
-### Internal Consistency
-
-Setiap elemen yang dijanjikan di Introduction harus hadir di Discussion/Conclusion.
-
-**Consistency Matrix:**
-```
-           Intro  Method  Result  Discuss  Conclude
-RQ1          ✓      ✓       ✓       ✓        ✓
-RQ2          ✓      ✓       ✓       ✗ ←      ✓
-Metrik-X     ✗      ✗       ✓ ←     ✗        ✗
-```
-**Masalah:** RQ2 dibahas di semua bagian kecuali Discussion. Metrik-X muncul di Result tapi tidak diperkenalkan di Method.
-
-### Writing Quality Triad
-
-| Kualitas | Deskripsi | Contoh Buruk → Baik |
-|----------|----------|---------------------|
-| **Clarity** | Dipahami sekali baca | "Performa meningkat" → "Accuracy meningkat dari 85.3% ke 89.7%" |
-| **Precision** | Istilah eksak, tanpa ambiguitas | "signifikan" → "signifikan secara statistik (p=0.003, d=1.2)" |
-| **Conciseness** | Setiap kata menambah informasi | Hapus kalimat redundan, filler words |
-
-### Urutan Penulisan yang Disarankan
-
-1. **Method & Results** — paling stabil, tulis pertama
-2. **Discussion** — interpretasi berdasarkan hasil
-3. **Introduction** — frame sesuai temuan aktual
-4. **Abstract & Conclusion** — terakhir
-
-### Target Jumlah Kata
-
-| Section | Target |
-|---------|--------|
-| Introduction | 500–700 |
-| Related Work | 700–1000 |
-| Method | 800–1200 |
-| Results | 500–800 |
-| Discussion | 600–900 |
-| Conclusion | 200–400 |
-
-### Jebakan Kognitif
-
-1. "Lebih panjang = lebih lengkap" → conciseness lebih berharga
-2. "Introduction harus ditulis pertama" → justru ditulis terakhir
-3. "Jargon teknis = lebih ilmiah" → clarity lebih penting
-4. "Discussion = ringkasan Results" → Discussion = interpretasi + konteks
-
----
-
-## Template A.15 — Paper Structure Checklist
-
-```
-PAPER STRUCTURE CHECKLIST
-
-Title   : ____________________
-Target  : [ ] Jurnal  [ ] Konferensi  [ ] Laporan
+```text
+Title   : Analisis Pengaruh Caching dan Load Balancing terhadap Performa Sistem E-Learning Berbasis Web
+Target  : [X] Laporan / Tugas Akhir RTI
 
 Section Check:
-  [ ] Abstract — masalah, metode, hasil utama, kontribusi (max 250 kata)
-  [ ] Introduction — konteks → gap → RQ → kontribusi → struktur paper
-  [ ] Related Work — concept-centric, gap positioning
-  [ ] Method — reproducible: desain, variabel, metrik, setup, prosedur
-  [ ] Results — tabel + grafik + observasi (tanpa interpretasi)
-  [ ] Discussion — interpretasi, perbandingan, implikasi, limitation
-  [ ] Conclusion — jawaban RQ, kontribusi, future work
+  [X] Abstract — masalah, metode, hasil utama, kontribusi (max 250 kata)
+  [X] Introduction — konteks → gap → RQ → kontribusi → struktur paper
+  [X] Related Work — concept-centric, gap positioning
+  [X] Method — reproducible: desain, variabel, metrik, setup, prosedur
+  [X] Results — tabel + grafik + observasi (tanpa interpretasi)
+  [X] Discussion — interpretasi, perbandingan, implikasi, limitation
+  [X] Conclusion — jawaban RQ, kontribusi, future work
 
 Consistency Matrix:
-  [ ] RQ di Introduction = RQ di Method = RQ di Conclusion
-  [ ] Variabel di Method = variabel di Results
-  [ ] Klaim di Discussion didukung data di Results
-  [ ] Limitasi di Discussion di-address di Conclusion/Future Work
+  [X] RQ di Introduction = RQ di Method = RQ di Conclusion
+  [X] Variabel di Method = variabel di Results
+  [X] Klaim di Discussion didukung data di Results
+  [X] Limitasi di Discussion di-address di Conclusion/Future Work
 
 Writing Quality:
-  [ ] Clarity — mudah dipahami tanpa re-read
-  [ ] Precision — tidak ada istilah ambigu
-  [ ] Conciseness — tidak ada kalimat redundan
+  [X] Clarity — mudah dipahami tanpa re-read
+  [X] Precision — tidak ada istilah ambigu
+  [X] Conciseness — tidak ada kalimat redundan
+
 ```
 
 ---
 
 ## Latihan 1 — Paper Outline
 
-Buat outline paper untuk riset Anda menggunakan struktur IMRAD.
+Outline paper untuk riset infrastruktur *e-learning* Universitas Putra Bangsa (UPB) Kebumen.
 
 | Section | Konten Utama (2-3 kalimat) | Target Kata |
-|---------|---------------------------|------------|
-| Abstract | *Contoh: Sistem rekomendasi memiliki akurasi tinggi tapi satisfaction rendah. Studi ini menguji CF+context signal. Hasil: satisfaction naik 38% tanpa penurunan RMSE signifikan.* | 200-250 |
-| Introduction | *Contoh: Konteks: gap antara akurasi dan kepuasan pengguna. Gap: tidak ada studi yang mengkombinasikan CF+context. RQ: apakah CF+context meningkatkan satisfaction?* | 500-700 |
-| Related Work | | 700-1000 |
-| Method | | 800-1200 |
-| Results | | 500-800 |
-| Discussion | | 600-900 |
-| Conclusion | | 200-400 |
+| --- | --- | --- |
+| **Abstract** | Lonjakan beban trafik *e-learning* pada kondisi puncak menyebabkan penurunan performa sistem secara drastis. Studi ini mengevaluasi arsitektur *Hybrid* (Nginx *Load Balancing* dan Redis *Caching*) dengan metode eksperimen ablasi berbasis 20 *run* simulasi beban. Hasil uji ANOVA menunjukkan arsitektur *Hybrid* secara signifikan ($p < 0.001$) mereduksi *response time* sebesar 51% (menjadi $120 \pm 6\text{ ms}$) dan mendongkrak *throughput* sebesar 102% ($850 \pm 12\text{ req/sec}$) dibandingkan *baseline*. | 200-250 |
+| **Introduction** | *Konteks*: Kebutuhan keandalan sistem *e-learning* kampus saat jam sibuk seperti presensi bersamaan. *Gap*: Banyak optimasi infrastruktur hanya berfokus pada salah satu layer komputasi (jaringan saja atau data saja) tanpa mengukur dampak interaksi simultan keduanya secara parsial (ablasi). *RQ*: Bagaimana pengaruh arsitektur *Hybrid* dibanding sistem tanpa optimasi terhadap reduksi *response time* dan peningkatan *throughput* *e-learning* saat beban puncak? | 500-700 |
+| **Related Work** | Tinjauan pustaka mengenai penerapan *load balancing* berbasis Nginx untuk perluasan kapasitas CPU horizontal dan teknologi Redis *caching* untuk reduksi hambatan I/O *database*. Pemosisian riset dilakukan dengan membedah gap penelitian terdahulu yang jarang menyajikan data variabilitas performa terstruktur (*multiple runs*) pada simulasi arsitektur web lokal. | 700-1000 |
+| **Method** | Spesifikasi eksperimen menggunakan instrumen virtualisasi lokal `docker-compose` di host Windows 11 dengan runtime Flask 3.0 dan database MySQL 8.0. Variabel bebas (IV) mencakup empat skenario (*Baseline*, *Cache Only*, *LB Only*, *Hybrid*) yang diuji konstan via injeksi *workload* JMeter sebesar 200 *concurrent users* selama 10 menit. Validasi integritas data dikunci menggunakan *random seed* tetap untuk memastikan keterulangan (*repeatability*). | 800-1200 |
+| **Results** | Penyajian data numerik murni hasil 20 kali *run* eksperimen yang diekstraksi otomatis dari instrumen monitoring Prometheus dan Grafana. Data ditampilkan dalam bentuk tabel *Mean* $\pm$ *Std* dan grafik *Box Plot* distribusi performa tanpa interpretasi subjektif, termasuk dokumentasi temuan *outlier* latensi $135\text{ ms}$ pada Run 4 skenario *Hybrid*. | 500-800 |
+| **Discussion** | Interpretasi atas keunggulan signifikan arsitektur *Hybrid* yang sukses memotong latensi hingga setengahnya dari *baseline*. Diskusi mendalam membedah temuan tak terduga (*unpredicted finding*) di mana skenario *LB Only* sedikit lebih unggul dibanding *Cache Only*, yang mengindikasikan bottleneck awal sistem berada pada kapasitas CPU server Flask, bukan I/O query MySQL. Pengakuan atas keterbatasan lingkungan lokal (*resource sharing host*) disampaikan secara terbuka. | 600-900 |
+| **Conclusion** | Penegasan penolakan hipotesis nol ($H_0$) karena arsitektur *Hybrid* terbukti secara empiris meningkatkan performa sistem secara berkelanjutan. Rekomendasi pengembangan riset selanjutnya (*future work*) mencakup migrasi pengujian ke *cloud provider* untuk latensi publik nyata dan orkestrasi *auto-scaling* menggunakan Kubernetes. | 200-400 |
 
 ---
 
 ## Latihan 2 — Consistency Matrix
 
-Buat consistency matrix untuk memverifikasi internal consistency paper Anda.
+Consistency matrix untuk memverifikasi keselarasan argumen internal paper.
 
-|  | Intro | Method | Result | Discussion | Conclusion |
-|--|-------|--------|--------|-----------|-----------|
-| *Contoh: RQ1* | *✓* | *✓* | *✓* | *✓* | *✓* |
-| *Contoh: Metrik-X* | *✗ ←* | *✗ ←* | *✓* | *✗ ←* | *✗ ←* |
-| RQ1 | | | | | |
-| RQ2 | | | | | |
-| Metrik utama | | | | | |
-| Variabel IV | | | | | |
-| Variabel DV | | | | | |
-| Klaim/kontribusi | | | | | |
+| Elemen | Intro | Method | Result | Discussion | Conclusion |
+| --- | --- | --- | --- | --- | --- |
+| **RQ1 (Pengaruh Performa Arsitektur)** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Metrik Utama (Response Time & Throughput)** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Variabel IV (Skenario Kontrol & Ablasi)** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Variabel DV (Skala ms & req/sec)** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Klaim / Kontribusi Efisiensi Hybrid** | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Keterbatasan / Limitasi Riset Lokal** | ✗ | ✗ | ✓ | ✓ | ✓ |
 
 **Isi setiap sel:** ✓ (ada & konsisten), ✗ (missing), ~ (ada tapi inkonsisten)
 
 **Inkonsistensi yang ditemukan:**
-> ___________________________________________________
+
+> Elemen "Keterbatasan / Limitasi Riset Lokal" (seperti *resource sharing CPU spikes* komputer host) terdeteksi muncul secara tak terduga pada bab Result saat investigasi anomali dan dibahas di Discussion, namun secara struktural memang absen di Introduction dan Method.
 
 **Tindakan perbaikan:**
-> ___________________________________________________
+
+> Hal ini merupakan alur normal dalam IMRAD, namun untuk menjaga konsistensi, ancaman validitas internal terkait *resource borrowing* komputer host ditambahkan penjelasannya pada bagian bab Method (sub-bab *Threat Mitigation*) sebagai mitigasi awal sebelum pencatatan log dijalankan.
 
 ---
 
 ## Latihan 3 — Writing Quality Check
 
-Ambil satu paragraf dari tulisan Anda (atau tulis paragraf baru) dan evaluasi kualitasnya.
-
 **Paragraf asli:**
-> (tempel paragraf Anda di sini)
+
+> Implementasi arsitektur Hybrid yang menggunakan kombinasi dari Nginx Load Balancing dan juga Redis Caching terbukti memiliki performa yang sangat bagus sekali dan lebih cepat. Sistem ini berhasil membuat response time dari e-learning menjadi lebih turun dan throughput dari sistemnya naik drastis sewaktu dilakukan pengujian beban puncak menggunakan tools JMeter dengan 200 user. Perubahan nilainya kelihatan beda banget kalau dibandingkan dengan baseline yang lambat.
 
 | Kriteria | Evaluasi | Perbaikan |
-|----------|---------|-----------|
-| Clarity | *Contoh: kalimat ke-3 ambigu — "performa" bisa berarti accuracy atau speed* | *Ubah menjadi: "accuracy meningkat..."* |
-| Precision | | |
-| Conciseness | | |
+| --- | --- | --- |
+| **Clarity** | Frasa "performa yang sangat bagus sekali dan lebih cepat" serta "naik drastis" bersifat abstrak, subjektif, dan tidak terukur. | Mengubahnya menjadi pernyataan kuantitatif dengan menyertakan nilai persentase perubahan yang eksak ($51\%$ dan $102\%$). |
+| **Precision** | Kata "lambat", "beda banget", dan "tools JMeter" tidak baku untuk penulisan ilmiah. Penggunaan istilah statistik belum presisi. | Menyertakan tingkat signifikansi statistik ($p < 0.001$), nilai rerata $\pm$ deviasi standar ($120 \pm 6\text{ ms}$ vs $245 \pm 11\text{ ms}$), serta menyebut JMeter sebagai instrumen uji beban kerja buatan. |
+| **Conciseness** | Banyak kata pemborosan (*filler*) seperti "kombinasi dari", "dan juga", "sewaktu dilakukan", dan "kelihatan". | Menghapus kata mubazir dan memadatkan struktur kalimat agar fokus pada fakta data hasil eksperimen. |
 
 **Paragraf setelah perbaikan:**
-> (tulis paragraf yang sudah diperbaiki)
+
+> Arsitektur *Hybrid* (Nginx *Load Balancing* dan Redis *Caching*) terbukti secara signifikan ($p < 0.001$) mengoptimalkan performa infrastruktur *e-learning* pada kondisi beban puncak. Injeksi beban kerja buatan sebesar 200 *concurrent users* menunjukkan arsitektur usulan mampu mereduksi *response time* sebesar 51% menjadi $120 \pm 6\text{ ms}$ dari nilai *baseline* awal ($245 \pm 11\text{ ms}$). Selain itu, kapasitas pemrosesan data (*throughput*) sistem melonjak sebesar 102%, naik dari $420 \pm 20\text{ req/sec}$ pada kondisi *baseline* menjadi $850 \pm 12\text{ req/sec}$.
 
 ---
 
 ## Refleksi
 
-> Apa perbedaan antara menulis "tentang" riset dan menulis sebagai "argumen" riset? Bagaimana urutan penulisan (Method → Discussion → Introduction) mengubah kualitas tulisan?
+Menulis "tentang" riset cenderung bersifat naratif deskriptif yang sekadar melaporkan apa saja aktivitas kronologis yang dilakukan peneliti di laboratorium. Sebaliknya, menulis sebagai sebuah "argumen" riset berarti memosisikan seluruh isi paper sebagai struktur pembuktian logis yang kokoh; di mana setiap data yang disajikan dalam bab *Results* dan *Discussion* bertindak sebagai bukti empiris tak terbantahkan untuk menjawab *Research Question* serta menolak Hipotesis Nol ($H_0$) yang diajukan di bab *Introduction*.
 
-> ___________________________________________________
-> ___________________________________________________
+Urutan penulisan terbalik (**Method & Results** $\rightarrow$ **Discussion** $\rightarrow$ **Introduction** $\rightarrow$ **Abstract**) secara radikal meningkatkan kualitas tulisan karena memaksa peneliti membangun bingkai narasi (*framing*) berdasarkan realitas data aktual yang sudah stabil. Hal ini secara efektif melindungikarya ilmiah dari bias kognitif *cherry-picking* (memanipulasi klaim pendahuluan agar terlihat cocok dengan hasil), menghemat waktu penyuntingan, serta memastikan jaminan konsistensi internal (*red thread*) terjaga utuh dari awal hingga akhir paragraf.
